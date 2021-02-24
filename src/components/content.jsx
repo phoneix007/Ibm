@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import Spinner from './spinner';
-import './../Styles/Content.css'
+import PDFviewer from './pdfview';
+import './../Styles/Content.css';
+
 
 const styleObj = {
   fontSize: 30,
@@ -24,14 +26,6 @@ const child = {
   transform: "translate(-50%, 10%)",
 }
 
-function Pdf({url, id}) {
-    return (
-        <div className="App" style={container}>
-          <h4 style={styleObj}>Session {id} PDF </h4>
-        <embed src={url} type="application/pdf" width="80%" height="500px" style={child}/>
-        </div>
-      );
-}
 
 function Video ({url, id}) {
     return (
@@ -57,7 +51,7 @@ export default function Content (props) {
             {
                 data.length === 0 ? <Spinner /> : 
                 ctn_type === 'V' ? <Video url={data[0].CT_Link} id={ss_id}/> :
-                <Pdf url={data[0].CT_Link} id={ss_id}/>
+                <PDFviewer url={data[0].CT_Link} id={ss_id}/>
             } 
         </div>
     )
