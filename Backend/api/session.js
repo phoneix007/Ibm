@@ -14,7 +14,8 @@ router.get('/:sp_id', (req, res) => {
       let sql = "SELECT * FROM SessionSection WHERE SP_id = ?;"
       conn.query(sql, [req.params.sp_id], (err, result) => {
           if(err) res.status(400).send('Querry Error');
-          else res.send(result);
+          if(result.length !== 0) res.send(result);
+          else res.json({ error: 'No Data Found' });
           conn.release();
         });
       }
