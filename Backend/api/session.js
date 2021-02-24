@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 // @route   GET /session/id 
-// @desc    Return Session Data based on Session Id from Courses
+// @desc    Return Contents per Session based on Session Id from Courses
 // @access  Public
 router.get('/:sp_id', (req, res) => {
   pool.getConnection((err, conn) => {
