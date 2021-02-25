@@ -7,7 +7,9 @@ import CurriculumSessions from './components/CurriculumSessions/CurriculumSessio
 
 function App() {
   return (
+    <Router>
     <CurriculumSessions/>
+    </Router>
   )
 }
 

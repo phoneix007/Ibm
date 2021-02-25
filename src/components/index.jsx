@@ -21,7 +21,7 @@ export default function DataTable({ data }) {
             {data.map((key, index) => 
             <tr key={index}>
             <td>{key.SS_id}</td>
-            <Link to={{pathname: `/content`, state:{id: key.SS_id, type: key.SS_Type}}}><td>{key.SS_Name}</td></Link>
+            <Link to={{pathname: `/content`, state:{id: key.SS_id, type: key.SS_Type}}}><td>{key.SS_Content}</td></Link>
             <td>{key.SS_Duration}</td>
             {/* <td>{key.SS_Type}</td> */}
           </tr>

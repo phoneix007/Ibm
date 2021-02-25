@@ -4,7 +4,7 @@ import DataTable from './components';
 export default function TableComponent() {
     const [data, setData] = useState([]);
     useEffect(() => {
-        fetch('https://ibm-sprint.herokuapp.com/session')
+        fetch('https://ibm-sprint.herokuapp.com/session/1')
         .then(res => res.json())
         .then(res => setData(res));
     }, []);

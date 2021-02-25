@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "cra-template": "1.1.2",
     "es6-promise": "^4.2.8",

@@ -1,11 +1,12 @@
 import React from 'react'
 import Style from './Session.module.css'
+import {Link} from 'react-router-dom'
 
 
 const Session = props =>{
     return (
     <tr>
-        <td><a href="/">{props.session}</a></td>
+        <td><Link to="/table">{props.session}</Link></td>
         <td>{props.status}</td>
     </tr>
     )

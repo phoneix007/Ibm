@@ -43,21 +43,24 @@ function Video ({url, id}) {
 }
 
 export default function Content (props) {
+     
+     console.log(props)
+
     const [data, setData] = useState([]);
     const ss_id = props.location.state.id;
     const ctn_type = props.location.state.type;
    useEffect(()=>{
-    fetch(`https://ibm-sprint.herokuapp.com/content/${ss_id}`)
+    fetch(`https://ibm-sprint.herokuapp.com/session/content/${ss_id}`)
     .then(res => res.json())
     .then(res => setData(res));
-  },[ss_id])
+  },1)
 
     return (
         <div>
             {
                 data.length === 0 ? <Spinner /> : 
-                ctn_type === 'V' ? <Video url={data[0].CT_Link} id={ss_id}/> :
-                <Pdf url={data[0].CT_Link} id={ss_id}/>
+                ctn_type === 'V' ? <Video url={data[0].CT_ContentLink} id={ss_id}/> :
+                <Pdf url={data[0].CT_ContentLink} id={ss_id}/>
             } 
         </div>
     )
