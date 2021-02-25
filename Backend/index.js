@@ -8,6 +8,8 @@ require('./config');
 
 const sessions = require('./api/session');
 const course  = require('./api/course');
+const curriculum  = require('./api/curriculum');
+
 
 const app = express();
 const port = process.env.PORT;
@@ -19,6 +21,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use('/session', sessions);
 app.use('/course', course);
+app.use('/curriculum', curriculum);
 
 app.use(function(req, res, next){
     res.status(404);
