@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Content from './components/content';
 import TableComponent from './Table';
 import CurriculumSessions from './components/CurriculumSessions/CurriculumSessions'
@@ -7,7 +7,10 @@ import CurriculumSessions from './components/CurriculumSessions/CurriculumSessio
 
 function App() {
   return (
-    <CurriculumSessions/>
+    <Router>
+      <CurriculumSessions/>
+    </Router>
+    
   )
 }
 
