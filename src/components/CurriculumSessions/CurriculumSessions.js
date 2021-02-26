@@ -8,11 +8,9 @@ import TableComponent from './../../Table'
 import Content from './../content'
 
 class CurriculumSessions extends Component {
-
     state = {
         Sessions : null
     }
-
      componentDidMount(){
 
        axios.get('https://ibm-sprint.herokuapp.com/course/1')
