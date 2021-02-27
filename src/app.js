@@ -3,12 +3,14 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Content from './components/content';
 import TableComponent from './Table';
 import CurriculumSessions from './components/CurriculumSessions/CurriculumSessions'
+import CourseTable from './components/CoursesTable/CoursesTable'
+import Curriculums from './components/Curriculums/Curriculums'
 
 
 function App() {
   return (
     <Router>
-      <CurriculumSessions/>
+     <Curriculums/>
     </Router>
     
   )
