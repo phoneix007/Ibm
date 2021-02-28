@@ -14,14 +14,14 @@ export default function DataTable({ data }) {
             {/* {data[0] && columns.map(heading => <th>{heading}</th>)} */}
                 <th>Session ID</th>
                 <th>Session Name</th>
-                <th> Duration (Min)</th>
+                <th>Duration (Min)</th>
             </tr>
         </thead>
         <tbody>
             {data.map((key, index) => 
             <tr key={key.SS_id}>
             <td>{key.SS_id}</td>
-            <Link to={{pathname: `/content`, state:{id: key.SS_id, type: key.SS_ContentType}}}><td>{key.SS_Content}</td></Link>
+            <Link to={{pathname: `/content/${key.SS_id}`}}><td>{key.SS_Content}</td></Link>
             <td>{key.SS_Duration}</td>
             {/* <td>{key.SS_Type}</td> */}
           </tr>

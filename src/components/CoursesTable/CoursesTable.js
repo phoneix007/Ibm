@@ -12,8 +12,9 @@ import {Switch,Route} from 'react-router-dom'
     }
     
     componentDidMount(){
+        let id = this.props.match.params.id
         
-        axios.get("https://ibm-sprint.herokuapp.com/curriculum/courses/1")
+        axios.get(`https://ibm-sprint.herokuapp.com/curriculum/courses/${id}`)
         .then( response => {
             this.setState({courses : response.data})
         }).catch(err => {   

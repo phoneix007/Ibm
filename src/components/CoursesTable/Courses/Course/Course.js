@@ -6,7 +6,7 @@ const Course = props => {
     props.courses.map(key => {
         return (
             <tr key={key.CO_id}>
-           <NavLink to={`Session${key.CO_id}`}> <td>{key.CO_Name}</td></NavLink>
+           <NavLink to={`/courses/${key.CO_id}`}> <td>{key.CO_Name}</td></NavLink>
             <td>{key.CO_Duration}</td>
            </tr>
            )   
@@ -15,3 +15,4 @@ const Course = props => {
 }
 
 export default Course
+

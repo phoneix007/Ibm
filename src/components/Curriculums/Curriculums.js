@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Curriculum from './Curriculum/Currriculum'
+import Style from './Curriculum/Curriculum.module.css'
 
 class Curriculums extends Component{
 
@@ -19,11 +20,21 @@ class Curriculums extends Component{
     }
 
     render(){
-
+        const id = this.props.match.params.id
         return (
-            <div>
-              {this.state.curriculums ? <Curriculum curriculums={this.state.curriculums}/> :null}
-            </div>
+            <div className={Style.Curriculum}>
+        <table>
+         <thead>
+             <tr>
+                 <th>Curriculum</th>
+                 <th>Insert date</th>
+             </tr>
+         </thead>
+         <tbody>
+          {this.state.curriculums ? <Curriculum curriculums={this.state.curriculums} id={id}/> : null}
+         </tbody>
+         </table>
+         </div>
         )
         
         

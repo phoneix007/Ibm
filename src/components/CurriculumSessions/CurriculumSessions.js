@@ -3,17 +3,15 @@ import { Component } from 'react'
 import Style from './CurriculumSessions.module.css'
 import Sessions from './Sessions/Sessions'
 import axios from 'axios'
-import {Route , Switch} from 'react-router-dom'
-import TableComponent from './../../Table'
-import Content from './../content'
 
 class CurriculumSessions extends Component {
     state = {
         Sessions : null
     }
      componentDidMount(){
-
-       axios.get('https://ibm-sprint.herokuapp.com/course/1')
+       const id = this.props.match.params.id
+       
+       axios.get(`https://ibm-sprint.herokuapp.com/course/${id}`)
        .then(response => {
            this.setState({Sessions: response.data})
        }).catch(err => {
@@ -22,7 +20,8 @@ class CurriculumSessions extends Component {
      } 
 
     render(){
-         let MCS =( <React.Fragment>
+        return (
+            <React.Fragment>
             <div>
                 <h1> Manage Curriculum Sessions</h1>
             </div>
@@ -37,18 +36,7 @@ class CurriculumSessions extends Component {
               {this.state.Sessions ? <Sessions sessions={this.state.Sessions}/>: null}
            </table>
            </div>
-           </React.Fragment>)
-
-        return (
-            <Switch>
-            <Route path='/' exact >
-                {MCS}
-            </Route>
-            <Route path ='/S-Sections/:id' exact component={TableComponent}/>
-            <Route path='/content' exact component={Content}/> 
-            </Switch>
-           
-               
+           </React.Fragment>      
         )
     }
   

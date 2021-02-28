@@ -3,6 +3,7 @@ import ReactPlayer from 'react-player';
 import Spinner from './spinner';
 import PDFviewer from './pdfview';
 import './../Styles/Content.css';
+import axios from 'axios';
 
 
 const styleObj = {
@@ -38,13 +39,11 @@ function Video ({url, id}) {
 
 export default function Content (props) {
     const [data, setData] = useState([]);
-    const ss_id = props.location.state.id;
-    console.log(ss_id)
-    const ctn_type = props.location.state.type;
-    console.log(ctn_type)
+    const ss_id = props.match.params.id;
+    
    useEffect(()=>{
-    fetch(`https://ibm-sprint.herokuapp.com/session/content/${ss_id}`)
-    .then(res => res.json())
+    axios.get(`https://ibm-sprint.herokuapp.com/session/content/${ss_id}`)
+    .then(res => res.data)
     .then(res => setData(res));
   },[ss_id])
 
@@ -52,9 +51,9 @@ export default function Content (props) {
         <div>
             {
                 data.length === 0 ? <Spinner /> : 
-                ctn_type === 'V' ? <Video url={data[0].CT_ContentLink} id={ss_id}/> :
+                data[0].CT_Type === 'V' ? <Video url={data[0].CT_ContentLink} id={ss_id}/> :
                 <PDFviewer url={data[0].CT_ContentLink} id={ss_id}/>
             } 
         </div>
     )
-}   
+}
