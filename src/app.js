@@ -27,13 +27,3 @@ function App() {
 
 export default App;
 
-{/* <>
-      <Router>
-        <Switch>
-        <Route exact path="/">
-            <TableComponent />
-          </Route>
-          <Route path="/content" component={Content}/>
-        </Switch>
-      </Router>
-    </> */}
