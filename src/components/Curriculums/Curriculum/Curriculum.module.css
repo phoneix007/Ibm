@@ -1,0 +1,25 @@
+.Curriculum{
+    position: relative;
+    margin-top: 5%;
+    font-size: 25px;
+    font-weight: 400;
+    border: 2px solid black;
+}
+
+.Curriculum table  {
+    position: relative;
+    left: 20%;
+    text-align: center;
+    table-layout: fixed;
+    width: 60%;
+    border: 2px solid black;
+
+    
+}
+
+th{
+    border:1px solid black;
+}
+tr{
+    color: #6f6f6f;
+}

@@ -5,8 +5,8 @@ import {Link} from 'react-router-dom'
 
 const Session = props =>{
     return (
-    <tr>
-        <td><Link to="/table">{props.session}</Link></td>
+        <tr>
+        <td><Link to={`session/${props.id}`}>{props.session}</Link></td>
         <td>{props.status}</td>
     </tr>
     )
