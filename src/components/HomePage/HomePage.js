@@ -6,9 +6,11 @@ const HomePage = props =>{
     return (
         <React.Fragment>
              <h1> Teacher's Home Page</h1>
-             <NavLink to={`/`}><div>Unlock and Tech Sessions</div></NavLink>
-             <NavLink to={`/Curriculums`}><div>Manage Curriculum</div></NavLink>
-             <NavLink to={`/`}><div>View student performance</div></NavLink>
+             <div className={Style.HomePage}>
+             <NavLink to={`/`} activeClassName={Style.MyActive}>Unlock and Tech Sessions</NavLink>
+             <NavLink to={`/Curriculums`} activeClassName={Style.MyActive}>Manage Curriculum</NavLink>
+             <NavLink to={`/`} activeClassName={Style.MyActive}>View student performance</NavLink>
+             </div>
         </React.Fragment>
     )
 }

@@ -1,0 +1,11 @@
+.HomePage {
+    color:#6f6f6f;
+    border: 1px solid black;
+    text-align: center;
+ 
+}
+
+.MyActive{
+    font-size: 40px;
+    display: block;
+}

@@ -3,6 +3,7 @@ import axios from 'axios'
 import Curriculum from './Curriculum/Currriculum'
 import Style from './Curriculum/Curriculum.module.css'
 
+
 class Curriculums extends Component{
 
     state ={
@@ -22,8 +23,8 @@ class Curriculums extends Component{
     render(){
         const id = this.props.match.params.id
         return (
-            <div className={Style.Curriculum}>
-        <table>
+            <div className={Style.Curriculums}>
+        <table >
          <thead>
              <tr>
                  <th>Curriculum</th>
@@ -31,7 +32,7 @@ class Curriculums extends Component{
              </tr>
          </thead>
          <tbody>
-          {this.state.curriculums ? <Curriculum curriculums={this.state.curriculums} id={id}/> : null}
+          {this.state.curriculums ? <Curriculum  curriculums={this.state.curriculums} id={id}/> : null}
          </tbody>
          </table>
          </div>
