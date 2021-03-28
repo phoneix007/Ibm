@@ -4,54 +4,60 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { cohortDeatils } from '../actions/teacherActions'
+import { coursesDeatils } from '../actions/teacherActions'
 
-export const CohortScreen = ({ history }) => {
+export const CoursesScreen = ({ history , match }) => {
     const dispatch = useDispatch()
 
     const teacherCohort = useSelector(state => state.teacherCohort)
-    const { loading, error, TeacherInfo } = teacherCohort
+    const {  TeacherInfo } = teacherCohort
 
+    const teacherCourses = useSelector(state => state.teacherCourses)
+    const { loading ,error, CoursesInfo } = teacherCourses
+    
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo, role } = userLogin
+    
 
     useEffect(()=> {
-        console.log(`role:${role}`);
-        if(userInfo &&role === 'Teacher') {
-            dispatch(cohortDeatils(userInfo.TC_id))
+        console.log(`params..:${match.params.id}`)
+        if(TeacherInfo && role === 'Teacher') {
+            dispatch(coursesDeatils(match.params.id))
         }
         
         
         else {
             history.push('')
         }
+        
+
     }, [dispatch, history, role, userInfo])
 
 
     return (
         <>
-        <h1>Cohorts</h1>
+        <h1>Courses</h1>
         { loading ? (<Loader>Loading....</Loader>) : error ? <Message variant='danger'>{error}</Message> :
         <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
         <thead>
             <tr>
-                <th>COHORT ID</th>
-                <th>COHORT NAME</th>
+                <th>Courses ID</th>
+                <th>Courses NAME</th>
                 <th>INSERT DATE</th>
             </tr>
         </thead>
-        <tbody>
-            {TeacherInfo.map((key, index) => 
+       {/* <tbody>
+            {CoursesInfo.map((key, index) => 
             <tr key={key.CH_id}>
             <td>{key.CH_id}</td>
-            <Link to= {`/Courses/${key.CU_id}`}><td>{key.CH_Name}</td></Link>
+            <Link to='/Curriculums'><td>{key.CH_Name}</td></Link>
             <td>{key.CH_InsertDate.split('T')[0]}</td>
           </tr>
           )}
-        </tbody>
+        </tbody> */}
     </Table> }
     </>
     ) 
 }
 
-export default CohortScreen
+export default CoursesScreen
