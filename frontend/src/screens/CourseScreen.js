@@ -4,45 +4,45 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { cohortDeatils } from '../actions/teacherActions'
+import { courseDetails } from '../actions/teacherActions'
 
-export const CohortScreen = ({ history }) => {
+export const CourseScreen = ({ history, match }) => {
     const dispatch = useDispatch()
-
-    const teacherCohort = useSelector(state => state.teacherCohort)
-    const { loading, error, TeacherInfo } = teacherCohort
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo, role } = userLogin
 
+    const courseDetail = useSelector(state => state.teacherCourses)
+    const { loading, CoursesInfo, error } = courseDetail
+
     useEffect(()=> {
         if(userInfo && role === 'Teacher') {
-            dispatch(cohortDeatils(userInfo.TC_id))
+            dispatch(courseDetails(match.params.id))
         }
         else {
             history.push('/login')
         }
-    }, [dispatch, history, role, userInfo])
+    }, [dispatch, history, match, role, userInfo])
 
 
     return (
         <>
-        <h1 style={{"text-align": "center"}}>Cohorts</h1>
+        <h1 style={{"text-align": "center"}}>Courses</h1>
         { loading ? (<Loader>Loading....</Loader>) : error ? <Message variant='danger'>{error}</Message> :
         <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
         <thead>
             <tr>
-                <th>COHORT ID</th>
-                <th>COHORT NAME</th>
+                <th>COURSE ID</th>
+                <th>COURSE NAME</th>
                 <th>INSERT DATE</th>
             </tr>
         </thead>
         <tbody>
-            {TeacherInfo.map((key, index) => 
-            <tr key={key.CH_id}>
-            <td>{key.CH_id}</td>
-            <Link to={`/courses/${key.CU_id}`}><td>{key.CH_Name}</td></Link>
-            <td>{key.CH_InsertDate.split('T')[0]}</td>
+            {CoursesInfo.map((key, index) => 
+            <tr key={key.CO_id}>
+            <td>{key.CO_id}</td>
+            <Link to={`/sessions/${key.CO_id}`}><td>{key.CO_Name}</td></Link>
+            <td>{key.CO_Insertdate === null ?  `${key.CO_Insertdate}` : key.CO_Insertdate}</td>
           </tr>
           )}
         </tbody>
@@ -51,4 +51,4 @@ export const CohortScreen = ({ history }) => {
     ) 
 }
 
-export default CohortScreen
+export default CourseScreen

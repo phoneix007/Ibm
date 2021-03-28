@@ -4,45 +4,45 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { cohortDeatils } from '../actions/teacherActions'
+import { sessionDetails } from '../actions/teacherActions'
 
-export const CohortScreen = ({ history }) => {
+export const SessionScreen = ({ history, match }) => {
     const dispatch = useDispatch()
-
-    const teacherCohort = useSelector(state => state.teacherCohort)
-    const { loading, error, TeacherInfo } = teacherCohort
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo, role } = userLogin
 
+    const sessionDetail = useSelector(state => state.teacherSessions)
+    const { loading, SessionInfo, error } = sessionDetail
+
     useEffect(()=> {
         if(userInfo && role === 'Teacher') {
-            dispatch(cohortDeatils(userInfo.TC_id))
+            dispatch(sessionDetails(match.params.id))
         }
         else {
             history.push('/login')
         }
-    }, [dispatch, history, role, userInfo])
+    }, [dispatch, history, match, role, userInfo])
 
 
     return (
         <>
-        <h1 style={{"text-align": "center"}}>Cohorts</h1>
+        <h1 style={{"text-align": "center"}}>Sessions</h1>
         { loading ? (<Loader>Loading....</Loader>) : error ? <Message variant='danger'>{error}</Message> :
         <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
         <thead>
             <tr>
-                <th>COHORT ID</th>
-                <th>COHORT NAME</th>
-                <th>INSERT DATE</th>
+                <th>SESSION ID</th>
+                <th>SESSION NAME</th>
+                <th>SESSION DURATION</th>
             </tr>
         </thead>
         <tbody>
-            {TeacherInfo.map((key, index) => 
-            <tr key={key.CH_id}>
-            <td>{key.CH_id}</td>
-            <Link to={`/courses/${key.CU_id}`}><td>{key.CH_Name}</td></Link>
-            <td>{key.CH_InsertDate.split('T')[0]}</td>
+            {SessionInfo.map((key, index) => 
+            <tr key={key.SP_id}>
+            <td>{key.SP_id}</td>
+            <Link to={`/sections/${key.SP_id}`}><td>{key.SP_Name}</td></Link>
+            <td>{key.SP_Duration === null ?  `${key.SP_Duration}` : key.SP_Duration}</td>
           </tr>
           )}
         </tbody>
@@ -51,4 +51,4 @@ export const CohortScreen = ({ history }) => {
     ) 
 }
 
-export default CohortScreen
+export default SessionScreen
