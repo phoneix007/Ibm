@@ -48,5 +48,77 @@ const getTeacherCourses = (req, res) => {
     })
 }
 
+const getTeacherSessionPlans = (req, res) => {
+  const { co_id } = req.body
+  pool.getConnection((err, conn) => {
+      if(err) res.status(400).send('Connection Error');
+      else {
+        let sql = `SELECT * FROM SessionPlan WHERE CO_id = ?;`
+        
+        conn.query(sql, [co_id], (err, result) => {
+            if(err) res.status(400).send('Querry Error');
+            else {
+              if(result.length > 0) {
+                  res.json(result)
+              }
+              else {
+                  res.status(401)
+                  res.json({ message: "No Data Found" })
+              }
+            }
+            conn.release();
+          })
+        }
+    })
+}
 
-module.exports = { getTeacherCohort, getTeacherCourses }
+const getTeacherSections = (req, res) => {
+  const { sp_id } = req.body
+  pool.getConnection((err, conn) => {
+      if(err) res.status(400).send('Connection Error');
+      else {
+        let sql = "SELECT * FROM SessionSection WHERE SP_id = ?;"
+        
+        conn.query(sql, [sp_id], (err, result) => {
+            if(err) res.status(400).send('Querry Error');
+            else {
+              if(result.length > 0) {
+                  res.json(result)
+              }
+              else {
+                  res.status(401)
+                  res.json({ message: "No Data Found" })
+              }
+            }
+            conn.release();
+          })
+        }
+    })
+}
+
+const getContent = (req, res) => {
+  const { ct_id } = req.body
+  pool.getConnection((err, conn) => {
+      if(err) res.status(400).send('Connection Error');
+      else {
+        let sql = `SELECT * FROM Content WHERE  CT_id= ?;`
+        
+        conn.query(sql, [ct_id], (err, result) => {
+            if(err) res.status(400).send('Querry Error');
+            else {
+              if(result.length > 0) {
+                  res.json(result)
+              }
+              else {
+                  res.status(401)
+                  res.json({ message: "No Data Found" })
+              }
+            }
+            conn.release();
+          })
+        }
+    })
+}
+
+
+module.exports = { getTeacherCohort, getTeacherCourses, getTeacherSessionPlans, getTeacherSections, getContent }
