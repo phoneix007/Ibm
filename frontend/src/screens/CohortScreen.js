@@ -30,17 +30,21 @@ export const CohortScreen = ({ history }) => {
         <h1 style={{"text-align": "center"}}>Cohorts</h1>
         { loading ? (<Loader>Loading....</Loader>) : error ? <Message variant='danger'>{error}</Message> :
         <div>
-        <div>
         
-        </div>
+        <Dropdown>
+  <Dropdown.Toggle variant="success" id="dropdown-basic">
+    Dropdown Button
+  </Dropdown.Toggle>
+
+  <Dropdown.Menu show>
+    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+  </Dropdown.Menu>
+</Dropdown>
+        
         <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
-        <Dropdown.Menu show>
-  <Dropdown.Item eventKey="1">Action</Dropdown.Item>
-  <Dropdown.Item eventKey="2">Another action</Dropdown.Item>
-  <Dropdown.Item eventKey="3">Something else here</Dropdown.Item>
-  <Dropdown.Divider />
-  <Dropdown.Item eventKey="4">Separated link</Dropdown.Item>
-</Dropdown.Menu>
+        
         <thead>
             <tr>
                 <th>COHORT ID</th>

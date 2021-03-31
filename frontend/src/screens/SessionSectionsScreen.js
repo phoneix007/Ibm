@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { sessionSectionDetails } from '../actions/teacherActions'
+import Dropdown from 'react-bootstrap/Dropdown'
 
 export const SessionSectionScreen = ({ history, match }) => {
     const dispatch = useDispatch()
@@ -29,6 +30,20 @@ export const SessionSectionScreen = ({ history, match }) => {
         <>
         <h1 style={{"text-align": "center"}}>Sections</h1>
         { loading ? (<Loader>Loading....</Loader>) : error ? <Message variant='danger'>{error}</Message> :
+        
+        <div>
+        
+                <Dropdown>
+        <Dropdown.Toggle variant="success" id="dropdown-basic">
+            Dropdown Button
+        </Dropdown.Toggle>
+        
+        <Dropdown.Menu show>
+            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+        </Dropdown.Menu>
+        </Dropdown>
         <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
         <thead>
             <tr>
@@ -48,7 +63,7 @@ export const SessionSectionScreen = ({ history, match }) => {
           </tr>
           )}
         </tbody>
-    </Table> }
+    </Table></div> }
     </>
     ) 
 }
