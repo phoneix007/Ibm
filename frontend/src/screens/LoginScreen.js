@@ -20,7 +20,7 @@ export const LoginScreen = ({ location, history }) => {
 
     useEffect(()=> {
         if(userInfo&&userRole==='Teacher') {
-            history.push("/cohort")
+            history.push("/home")
         }
         else if(userInfo&&userRole==='Student') {
             history.push("/courses/1")

@@ -8,6 +8,7 @@ import CourseScreen from './screens/CourseScreen'
 import SessionScreen from './screens/SessionScreen'
 import SessionSectionScreen from './screens/SessionSectionsScreen'
 import ContentScreen from './screens/ContentScreen'
+import HomeScreen from './screens/HomeScreen'
 const  App = () => {
   return (
     <Router>
@@ -21,6 +22,7 @@ const  App = () => {
           <Route path='/sessions/:id' component={SessionScreen} />
           <Route path='/sections/:id' component={SessionSectionScreen} />
           <Route path='/content/:id' component={ContentScreen} />
+          <Route path='/home' component={HomeScreen} />
         </Container>
       </main>
       

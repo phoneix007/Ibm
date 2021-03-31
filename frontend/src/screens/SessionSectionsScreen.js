@@ -35,13 +35,14 @@ export const SessionSectionScreen = ({ history, match }) => {
         
                 <Dropdown>
         <Dropdown.Toggle variant="success" id="dropdown-basic">
-            Dropdown Button
+            Menu
         </Dropdown.Toggle>
         
         <Dropdown.Menu show>
-            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+            <Dropdown.Item href="#/action-1">Unlock and Teach Sessions</Dropdown.Item>
+            <Dropdown.Item href="#/action-2">Manage Curriculum</Dropdown.Item>
+            <Dropdown.Item href="#/action-3">Conduct Assessment</Dropdown.Item>
+            <Dropdown.Item href="#/action-1">View students’ performance</Dropdown.Item>
         </Dropdown.Menu>
         </Dropdown>
         <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
