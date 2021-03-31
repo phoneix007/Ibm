@@ -5,30 +5,42 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { courseDetails } from '../actions/teacherActions'
+import DropdownButton from 'react-bootstrap/DropdownButton'
+import Dropdown from 'react-bootstrap/Dropdown'
 
 export const CourseScreen = ({ history, match }) => {
     const dispatch = useDispatch()
 
     const userLogin = useSelector(state => state.userLogin)
-    const { userInfo, role } = userLogin
+    const { userInfo, userRole } = userLogin
 
     const courseDetail = useSelector(state => state.teacherCourses)
     const { loading, CoursesInfo, error } = courseDetail
 
     useEffect(()=> {
-        if(userInfo && role === 'Teacher') {
+        if(userInfo ) {
             dispatch(courseDetails(match.params.id))
         }
         else {
             history.push('/login')
         }
-    }, [dispatch, history, match, role, userInfo])
+    }, [dispatch, history, match, userRole, userInfo])
 
 
     return (
         <>
         <h1 style={{"text-align": "center"}}>Courses</h1>
         { loading ? (<Loader>Loading....</Loader>) : error ? <Message variant='danger'>{error}</Message> :
+        <div>
+        <div>
+        <Dropdown.Menu show>
+        <Dropdown.Item eventKey="1">Action</Dropdown.Item>
+        <Dropdown.Item eventKey="2">Another action</Dropdown.Item>
+        <Dropdown.Item eventKey="3">Something else here</Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Item eventKey="4">Separated link</Dropdown.Item>
+        </Dropdown.Menu>
+        </div>
         <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
         <thead>
             <tr>
@@ -46,7 +58,7 @@ export const CourseScreen = ({ history, match }) => {
           </tr>
           )}
         </tbody>
-    </Table> }
+    </Table> </div> }
     </>
     ) 
 }

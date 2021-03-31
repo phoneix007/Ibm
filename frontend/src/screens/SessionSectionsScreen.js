@@ -16,7 +16,7 @@ export const SessionSectionScreen = ({ history, match }) => {
     const { loading, SessionSectionInfo, error } = sessionSectionDetail
 
     useEffect(()=> {
-        if(userInfo && role === 'Teacher') {
+        if(userInfo) {
             dispatch(sessionSectionDetails(match.params.id))
         }
         else {

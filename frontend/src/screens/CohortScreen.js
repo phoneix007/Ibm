@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { cohortDeatils } from '../actions/teacherActions'
-
+import Dropdown from 'react-bootstrap/Dropdown'
 export const CohortScreen = ({ history }) => {
     const dispatch = useDispatch()
 
@@ -13,23 +13,34 @@ export const CohortScreen = ({ history }) => {
     const { loading, error, TeacherInfo } = teacherCohort
 
     const userLogin = useSelector(state => state.userLogin)
-    const { userInfo, role } = userLogin
+    const { userInfo, userRole } = userLogin
 
     useEffect(()=> {
-        if(userInfo && role === 'Teacher') {
+        if(userInfo ) {
             dispatch(cohortDeatils(userInfo.TC_id))
         }
         else {
             history.push('/login')
         }
-    }, [dispatch, history, role, userInfo])
+    }, [dispatch, history, userRole, userInfo])
 
 
     return (
         <>
         <h1 style={{"text-align": "center"}}>Cohorts</h1>
         { loading ? (<Loader>Loading....</Loader>) : error ? <Message variant='danger'>{error}</Message> :
+        <div>
+        <div>
+        
+        </div>
         <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
+        <Dropdown.Menu show>
+  <Dropdown.Item eventKey="1">Action</Dropdown.Item>
+  <Dropdown.Item eventKey="2">Another action</Dropdown.Item>
+  <Dropdown.Item eventKey="3">Something else here</Dropdown.Item>
+  <Dropdown.Divider />
+  <Dropdown.Item eventKey="4">Separated link</Dropdown.Item>
+</Dropdown.Menu>
         <thead>
             <tr>
                 <th>COHORT ID</th>
@@ -46,7 +57,8 @@ export const CohortScreen = ({ history }) => {
           </tr>
           )}
         </tbody>
-    </Table> }
+    </Table>
+    </div> }
     </>
     ) 
 }

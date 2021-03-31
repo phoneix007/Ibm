@@ -14,15 +14,18 @@ export const LoginScreen = ({ location, history }) => {
     const dispatch = useDispatch()
 
     const userLogin = useSelector(state => state.userLogin)
-    const { loading, error, userInfo } = userLogin
+    const { loading, error, userInfo, userRole } = userLogin
     
     const redirect = location.search ? location.search.split('=')[1] : '/'
 
     useEffect(()=> {
-        if(userInfo) {
-            history.push(redirect)
+        if(userInfo&&userRole==='Teacher') {
+            history.push("/cohort")
         }
-    }, [history, redirect, userInfo])
+        else if(userInfo&&userRole==='Student') {
+            history.push("/courses/1")
+        }
+    }, [history, redirect, userInfo,userRole])
 
 
     const submitHandler = (e) => {

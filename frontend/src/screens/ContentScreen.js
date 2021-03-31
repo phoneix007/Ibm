@@ -26,7 +26,7 @@ export const ContentScreen = ({ history, match }) => {
     const { loading, ContentInfo, error } = contentDetail
 
     useEffect(()=> {
-        if(userInfo && role === 'Teacher') {
+        if(userInfo ) {
             dispatch(contentDetails(match.params.id))
         }
         else {
