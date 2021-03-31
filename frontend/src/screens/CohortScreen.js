@@ -16,14 +16,11 @@ export const CohortScreen = ({ history }) => {
     const { userInfo, role } = userLogin
 
     useEffect(()=> {
-        console.log(`role:${role}`);
-        if(userInfo &&role === 'Teacher') {
+        if(userInfo && role === 'Teacher') {
             dispatch(cohortDeatils(userInfo.TC_id))
         }
-        
-        
         else {
-            history.push('')
+            history.push('/login')
         }
     }, [dispatch, history, role, userInfo])
 
@@ -44,7 +41,7 @@ export const CohortScreen = ({ history }) => {
             {TeacherInfo.map((key, index) => 
             <tr key={key.CH_id}>
             <td>{key.CH_id}</td>
-            <Link to= {`/Courses/${key.CU_id}`}><td>{key.CH_Name}</td></Link>
+            <Link to='/login'><td>{key.CH_Name}</td></Link>
             <td>{key.CH_InsertDate.split('T')[0]}</td>
           </tr>
           )}

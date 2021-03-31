@@ -4,8 +4,6 @@ import Header from './components/Header'
 import { Container } from 'react-bootstrap'
 import CohortScreen from './screens/CohortScreen'
 import LoginScreen from './screens/LoginScreen'
-import Curriculum from './screens/Curriculums'
-import Courses from './screens/CoursesScreen'
 const  App = () => {
   return (
     <Router>
@@ -15,8 +13,6 @@ const  App = () => {
           <Route exact path='/' component={LoginScreen} />
           <Route exact path='/login' component={LoginScreen} />
           <Route exact path='/cohort' component={CohortScreen} />
-          <Route exact path='/Curriculums' component={Curriculum} />
-          <Route exact path='/Courses/:id' component={Courses} />
         </Container>
       </main>
       
