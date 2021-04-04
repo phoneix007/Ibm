@@ -12,7 +12,7 @@ export const SessionScreen = ({ history, match }) => {
     const dispatch = useDispatch()
 
     const userLogin = useSelector(state => state.userLogin)
-    const { userInfo, role } = userLogin
+    const { userInfo } = userLogin
 
     const sessionDetail = useSelector(state => state.teacherSessions)
     const { loading, SessionInfo, error } = sessionDetail
@@ -27,7 +27,7 @@ export const SessionScreen = ({ history, match }) => {
         else {
             history.push('/login')
         }
-    }, [dispatch, history, role, urlParameter, userInfo])
+    }, [dispatch, history, urlParameter, userInfo])
 
 
     return (

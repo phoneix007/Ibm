@@ -21,7 +21,7 @@ const userRoleFromStorage = localStorage.getItem('userRole') ? JSON.parse(localS
 const urlVarFromStorage = localStorage.getItem('urlParameter') ? JSON.parse(localStorage.getItem('urlParameter')) : {}
 
 const initialState = {
-    userLogin: { userInfo: userInfoFromStorage, role: userRoleFromStorage },
+    userLogin: { userInfo: userInfoFromStorage, userRole: userRoleFromStorage },
     urlVar: { urlParameter: urlVarFromStorage }
 }
 const middleware = [thunk]

@@ -1,23 +1,21 @@
 import React, { useEffect } from 'react'
-import Table from 'react-bootstrap/Table'
-import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { cohortDeatils } from '../actions/teacherActions'
 import Dropdown from 'react-bootstrap/Dropdown'
+
 export const HomeScreen = ({ history }) => {
     const dispatch = useDispatch()
 
     const userLogin = useSelector(state => state.userLogin)
-    const {loading,error, userInfo, role } = userLogin
+    const {loading,error, userInfo, userRole } = userLogin
 
     useEffect(()=> {
-        if(!userInfo ) {
+        if(!userInfo) {
             history.push('/login')
         }
         
-    }, [dispatch, history, role, userInfo])
+    }, [dispatch, history, userInfo])
 
 
     return (
@@ -40,7 +38,7 @@ export const HomeScreen = ({ history }) => {
 </Dropdown>
         
         <h1 style={{"text-align": "center"}}>Welcome to smart kaksha..</h1>
-        <h1 style={{"text-align": "center"}}>{role} Dashboard</h1>
+        <h1 style={{"text-align": "center"}}>{userRole} Dashboard</h1>
     </div> }
     </>
     ) 

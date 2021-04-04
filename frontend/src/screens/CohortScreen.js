@@ -16,16 +16,16 @@ export const CohortScreen = ({ history }) => {
     const { loading, error, TeacherInfo } = teacherCohort
 
     const userLogin = useSelector(state => state.userLogin)
-    const { userInfo, role } = userLogin
+    const { userInfo, userRole } = userLogin
 
     useEffect(()=> {
-        if(userInfo && role === "Teacher") {
+        if(userInfo && userRole === "Teacher") {
             dispatch(cohortDeatils(userInfo.TC_id))
         }
         else {
             history.push('/login')
         }
-    }, [dispatch, history, role, userInfo])
+    }, [dispatch, history, userRole, userInfo])
 
       
     return (
