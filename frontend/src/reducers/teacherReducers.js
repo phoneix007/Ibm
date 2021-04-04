@@ -57,7 +57,7 @@ export const teacherSessionSectionReducer = (state={ SessionSectionInfo: [] }, a
 export const teacherTempReducer = (state={ urlParameter: {} }, action) => {
     switch(action.type) {
         case TEACHER_TEMP_SET:
-            return { urlParameter: action.payload }
+            return { urlParameter: {...state.urlParameter, [action.obj]: action.payload }}
         case TEACHER_TEMP_RESET:
             return { }
         default:

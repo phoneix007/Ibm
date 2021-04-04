@@ -5,7 +5,7 @@ export const setTemp = (obj, tempId) => async(dispatch) => {
         [obj]: tempId
     }
     try {
-        dispatch({ type: TEACHER_TEMP_SET, payload: val })
+        dispatch({ type: TEACHER_TEMP_SET, payload: tempId, obj: [obj] })
         localStorage.setItem('urlParameter', JSON.stringify(val))
 
     } catch (error) {
