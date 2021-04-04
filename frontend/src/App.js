@@ -18,10 +18,10 @@ const  App = () => {
           <Route exact path='/' component={LoginScreen} />
           <Route exact path='/login' component={LoginScreen} />
           <Route exact path='/cohort' component={CohortScreen} />
-          <Route path='/courses/:id' component={CourseScreen} />
-          <Route path='/sessions/:id' component={SessionScreen} />
-          <Route path='/sections/:id' component={SessionSectionScreen} />
-          <Route path='/content/:id' component={ContentScreen} />
+          <Route path='/courses' component={CourseScreen} />
+          <Route path='/sessions' component={SessionScreen} />
+          <Route path='/sections' component={SessionSectionScreen} />
+          <Route path='/content' component={ContentScreen} />
           <Route path='/home' component={HomeScreen} />
         </Container>
       </main>

@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { courseDetails } from '../actions/teacherActions'
-import DropdownButton from 'react-bootstrap/DropdownButton'
+import { setTemp } from '../actions/urlActions'
+// import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
 
 export const CourseScreen = ({ history, match }) => {
@@ -17,14 +18,18 @@ export const CourseScreen = ({ history, match }) => {
     const courseDetail = useSelector(state => state.teacherCourses)
     const { loading, CoursesInfo, error } = courseDetail
 
+    const urlVar = useSelector(state => state.urlVar)
+    const { urlParameter } = urlVar
+
     useEffect(()=> {
         if(userInfo ) {
-            dispatch(courseDetails(match.params.id))
+            dispatch(courseDetails(urlParameter.courseUrl))
         }
+        
         else {
             history.push('/login')
         }
-    }, [dispatch, history, match, userRole, userInfo])
+    }, [dispatch, history, userRole, userInfo, urlParameter])
 
 
     return (
@@ -59,7 +64,7 @@ export const CourseScreen = ({ history, match }) => {
             {CoursesInfo.map((key, index) => 
             <tr key={key.CO_id}>
             <td>{key.CO_id}</td>
-            <Link to={`/sessions/${key.CO_id}`}><td>{key.CO_Name}</td></Link>
+            <Link to={`/sessions`} onClick={() => dispatch(setTemp('sessionUrl', key.CO_id))}><td>{key.CO_Name}</td></Link>
             <td>{key.CO_Insertdate === null ?  `${key.CO_Insertdate}` : key.CO_Insertdate}</td>
           </tr>
           )}

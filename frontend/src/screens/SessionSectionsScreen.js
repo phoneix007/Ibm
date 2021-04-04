@@ -6,8 +6,9 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { sessionSectionDetails } from '../actions/teacherActions'
 import Dropdown from 'react-bootstrap/Dropdown'
+import { setTemp } from '../actions/urlActions'
 
-export const SessionSectionScreen = ({ history, match }) => {
+export const SessionSectionScreen = ({ history }) => {
     const dispatch = useDispatch()
 
     const userLogin = useSelector(state => state.userLogin)
@@ -16,14 +17,18 @@ export const SessionSectionScreen = ({ history, match }) => {
     const sessionSectionDetail = useSelector(state => state.teacherSessionSection)
     const { loading, SessionSectionInfo, error } = sessionSectionDetail
 
+    const urlVar = useSelector(state => state.urlVar)
+    const { urlParameter } = urlVar
+
+
     useEffect(()=> {
         if(userInfo) {
-            dispatch(sessionSectionDetails(match.params.id))
+            dispatch(sessionSectionDetails(urlParameter.sectionUrl))
         }
         else {
             history.push('/login')
         }
-    }, [dispatch, history, match, role, userInfo])
+    }, [dispatch, history, urlParameter, role, userInfo])
 
 
     return (
@@ -58,7 +63,7 @@ export const SessionSectionScreen = ({ history, match }) => {
             {SessionSectionInfo.map((key, index) => 
             <tr key={key.SS_id}>
             <td>{key.SS_id}</td>
-            <Link to={`/content/${key.CT_id}`}><td>{key.SS_Content}</td></Link>
+            <Link to={`/content`} onClick={() => dispatch(setTemp('contentUrl', key.CT_id))}><td>{key.SS_Content}</td></Link>
             <td>{key.SS_ContentType}</td>
             <td>{key.SS_Duration === null ?  `${key.SS_Duration}` : key.SS_Duration}</td>
           </tr>

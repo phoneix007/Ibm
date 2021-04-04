@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { cohortDeatils } from '../actions/teacherActions'
+import { setTemp } from '../actions/urlActions'
 import Dropdown from 'react-bootstrap/Dropdown'
+
+
 export const CohortScreen = ({ history }) => {
     const dispatch = useDispatch()
 
@@ -13,18 +16,18 @@ export const CohortScreen = ({ history }) => {
     const { loading, error, TeacherInfo } = teacherCohort
 
     const userLogin = useSelector(state => state.userLogin)
-    const { userInfo, userRole } = userLogin
+    const { userInfo, role } = userLogin
 
     useEffect(()=> {
-        if(userInfo ) {
+        if(userInfo && role === "Teacher") {
             dispatch(cohortDeatils(userInfo.TC_id))
         }
         else {
             history.push('/login')
         }
-    }, [dispatch, history, userRole, userInfo])
+    }, [dispatch, history, role, userInfo])
 
-
+      
     return (
         <>
         <h1 style={{"text-align": "center"}}>Cohorts</h1>
@@ -57,7 +60,7 @@ export const CohortScreen = ({ history }) => {
             {TeacherInfo.map((key, index) => 
             <tr key={key.CH_id}>
             <td>{key.CH_id}</td>
-            <Link to={`/courses/${key.CU_id}`}><td>{key.CH_Name}</td></Link>
+            <Link to={`/courses`} onClick={() => dispatch(setTemp('courseUrl', key.CU_id))}><td>{key.CH_Name}</td></Link>
             <td>{key.CH_InsertDate.split('T')[0]}</td>
           </tr>
           )}

@@ -6,6 +6,7 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { sessionDetails } from '../actions/teacherActions'
 import Dropdown from 'react-bootstrap/Dropdown'
+import { setTemp } from '../actions/urlActions'
 
 export const SessionScreen = ({ history, match }) => {
     const dispatch = useDispatch()
@@ -16,14 +17,17 @@ export const SessionScreen = ({ history, match }) => {
     const sessionDetail = useSelector(state => state.teacherSessions)
     const { loading, SessionInfo, error } = sessionDetail
 
+    const urlVar = useSelector(state => state.urlVar)
+    const { urlParameter } = urlVar
+
     useEffect(()=> {
-        if(userInfo ) {
-            dispatch(sessionDetails(match.params.id))
+        if(userInfo) {
+            dispatch(sessionDetails(urlParameter.sessionUrl))
         }
         else {
             history.push('/login')
         }
-    }, [dispatch, history, match, role, userInfo])
+    }, [dispatch, history, role, urlParameter, userInfo])
 
 
     return (
@@ -57,7 +61,7 @@ export const SessionScreen = ({ history, match }) => {
             {SessionInfo.map((key, index) => 
             <tr key={key.SP_id}>
             <td>{key.SP_id}</td>
-            <Link to={`/sections/${key.SP_id}`}><td>{key.SP_Name}</td></Link>
+            <Link to={`/sections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>{key.SP_Name}</td></Link>
             <td>{key.SP_Duration === null ?  `${key.SP_Duration}` : key.SP_Duration}</td>
           </tr>
           )}
