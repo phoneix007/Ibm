@@ -23,7 +23,7 @@ export const LoginScreen = ({ location, history }) => {
             history.push("/home")
         }
         else if(userInfo && userRole === 'Student') {
-            history.push("/courses")
+            history.push("/homestd")
         }
     }, [history, redirect, userInfo, userRole])
 

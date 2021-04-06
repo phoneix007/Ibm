@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { courseDetails } from '../actions/teacherActions'
+import { coursesDetails } from '../actions/studentActions'
 import { setTemp } from '../actions/urlActions'
-// import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
 
 export const CourseScreen = ({ history, match }) => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch() 
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo, userRole } = userLogin
@@ -22,14 +22,13 @@ export const CourseScreen = ({ history, match }) => {
     const { urlParameter } = urlVar
 
     useEffect(()=> {
-        if(userInfo ) {
+        if(userInfo) {
             dispatch(courseDetails(urlParameter.courseUrl))
         }
-        
         else {
             history.push('/login')
         }
-    }, [dispatch, history, userRole, userInfo, urlParameter])
+    }, [dispatch, history, userInfo, urlParameter])
 
 
     return (
@@ -43,13 +42,23 @@ export const CourseScreen = ({ history, match }) => {
         <Dropdown.Toggle variant="success" id="dropdown-basic">
         Menu
         </Dropdown.Toggle>
-
-        <Dropdown.Menu show>
-        <Dropdown.Item href="#/action-1">Unlock and Teach Sessions</Dropdown.Item>
-            <Dropdown.Item href="#/action-2">Manage Curriculum</Dropdown.Item>
+        {
+            userRole==='Student'?
+            <Dropdown.Menu show>
+            <Dropdown.Item ><Link to={`/homestd`}>Dashboard</Link></Dropdown.Item>
+            <Dropdown.Item ><Link to={`/courses`}> View your performance</Link></Dropdown.Item>
+            <Dropdown.Item href="#/action-3">View curriculum</Dropdown.Item>
+            <Dropdown.Item href="#/action-1">Attending session</Dropdown.Item>
+            </Dropdown.Menu>
+            :
+            <Dropdown.Menu show>
+            <Dropdown.Item ><Link to={`/home`}>Dashboard</Link></Dropdown.Item>
+            <Dropdown.Item ><Link to={`/cohort`}>View Curriculum</Link></Dropdown.Item>
             <Dropdown.Item href="#/action-3">Conduct Assessment</Dropdown.Item>
             <Dropdown.Item href="#/action-1">View students’ performance</Dropdown.Item>
-        </Dropdown.Menu>
+            </Dropdown.Menu>
+            
+        }
         </Dropdown>
         </div>
         <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>

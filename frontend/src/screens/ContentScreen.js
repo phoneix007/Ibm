@@ -22,6 +22,7 @@ export const ContentScreen = ({ history }) => {
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
+
     const contentDetail = useSelector(state => state.content)
     const { loading, ContentInfo, error } = contentDetail
 
@@ -37,6 +38,7 @@ export const ContentScreen = ({ history }) => {
             history.push('/login') 
         }
     }, [dispatch, history, urlParameter, userInfo])
+
 
 
     return (

@@ -4,6 +4,7 @@ const dotenv = require('dotenv')
 const pool = require('./config/db')
 const userRoutes = require('./routes/userRoutes')
 const teacherRoutes = require('./routes/teacherRoutes')
+const studentRoutes = require('./routes/studentRoutes')
 
 
 const { errorHandler } = require('./middleware/errorMiddleware.js')
@@ -20,8 +21,8 @@ app.get('/', (req, res) => res.send('API UP'))
 app.use(cors())
 app.use('/api/users', userRoutes)
 app.use('/api/teachers', teacherRoutes)
-// app.use('/api/sessions', sessionRoutes)
-// app.use('/api/courses', courseRoutes)
+app.use('/api/student', studentRoutes)
+
 
 app.use(errorHandler)
 

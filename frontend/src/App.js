@@ -9,6 +9,8 @@ import SessionScreen from './screens/SessionScreen'
 import SessionSectionScreen from './screens/SessionSectionsScreen'
 import ContentScreen from './screens/ContentScreen'
 import HomeScreen from './screens/HomeScreen'
+import HomeScreenstd from './screens/homestudent'
+
 const  App = () => {
   return (
     <Router>
@@ -23,6 +25,7 @@ const  App = () => {
           <Route path='/sections' component={SessionSectionScreen} />
           <Route path='/content' component={ContentScreen} />
           <Route path='/home' component={HomeScreen} />
+          <Route path='/homestd' component={HomeScreenstd} />
         </Container>
       </main>
       

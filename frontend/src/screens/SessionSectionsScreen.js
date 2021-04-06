@@ -12,7 +12,7 @@ export const SessionSectionScreen = ({ history }) => {
     const dispatch = useDispatch()
 
     const userLogin = useSelector(state => state.userLogin)
-    const { userInfo } = userLogin
+    const { userInfo, userRole } = userLogin
 
     const sessionSectionDetail = useSelector(state => state.teacherSessionSection)
     const { loading, SessionSectionInfo, error } = sessionSectionDetail
@@ -43,12 +43,23 @@ export const SessionSectionScreen = ({ history }) => {
             Menu
         </Dropdown.Toggle>
         
-        <Dropdown.Menu show>
-            <Dropdown.Item href="#/action-1">Unlock and Teach Sessions</Dropdown.Item>
-            <Dropdown.Item href="#/action-2">Manage Curriculum</Dropdown.Item>
+        {
+            userRole==='Student'?
+            <Dropdown.Menu show>
+            <Dropdown.Item ><Link to={`/homestd`}>Dashboard</Link></Dropdown.Item>
+            <Dropdown.Item ><Link to={`/courses`}> View your performance</Link></Dropdown.Item>
+            <Dropdown.Item href="#/action-3">View curriculum</Dropdown.Item>
+            <Dropdown.Item href="#/action-1">Attending session</Dropdown.Item>
+            </Dropdown.Menu>
+            :
+            <Dropdown.Menu show>
+            <Dropdown.Item ><Link to={`/home`}>Dashboard</Link></Dropdown.Item>
+            <Dropdown.Item ><Link to={`/cohort`}>View Curriculum</Link></Dropdown.Item>
             <Dropdown.Item href="#/action-3">Conduct Assessment</Dropdown.Item>
             <Dropdown.Item href="#/action-1">View students’ performance</Dropdown.Item>
-        </Dropdown.Menu>
+            </Dropdown.Menu>
+            
+        }
         </Dropdown>
         <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
         <thead>
