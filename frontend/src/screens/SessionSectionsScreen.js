@@ -60,7 +60,6 @@ export const SessionSectionScreen = ({ history }) => {
             </Dropdown.Menu>
             
         }
-        
         </Dropdown>
         <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
         <thead>
