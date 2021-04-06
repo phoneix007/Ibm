@@ -1,37 +1,29 @@
 const pool = require('../config/db')
 
-const getTeacherCohort = (req, res) => {
-    const { tc_id } = req.body
-    pool.getConnection((err, conn) => {
-        if(err) res.status(400).send('Connection Error');
-        else {
-          let sql = 'SELECT * FROM Cohort WHERE TC_id = ?'
-          
-          conn.query(sql, [tc_id], (err, result) => {
-              if(err) res.status(400).send('Querry Error');
-              else {
-                if(result.length > 0) {
-                    res.json(result)
-                }
-                else {
-                    res.status(401)
-                    res.json({ message: "No Data Found" })
-                }
-              }
-              conn.release();
-            })
-          }
-      })
-}
 
-const getTeacherCourses = (req, res) => {
-  const { cu_id } = req.body
+
+const getStudentCourses = (req, res) => {
+  const { st_id } = req.body
   pool.getConnection((err, conn) => {
       if(err) res.status(400).send('Connection Error');
       else {
-        let sql = `SELECT * FROM Course a INNER JOIN CurriculumDetails b ON a.CO_id=b.CO_id WHERE CU_id = ?;`
+        let sql1 = `SELECT ch_id FROM COHORTSTUDENT WHERE ST_id = ?;`
+        conn.query(sql1, [st_id], (err, result) => {
+          if(err) res.status(400).send('Querry Error');
+          else {
+            if(result.length > 0) {
+                let ch_id=result;
+            }
+            else {
+                res.status(401)
+                res.json({ message: "No Data Found" })
+            }
+          }
+          conn.release();
+        })
+        let sql = `SELECT * FROM Course a INNER JOIN CurriculumDetails b ON a.CO_id=b.CO_id WHERE ch_id = ?;`
         
-        conn.query(sql, [cu_id], (err, result) => {
+        conn.query(sql, [ch_id], (err, result) => {
             if(err) res.status(400).send('Querry Error');
             else {
               if(result.length > 0) {
@@ -48,7 +40,7 @@ const getTeacherCourses = (req, res) => {
     })
 }
 
-const getTeacherSessionPlans = (req, res) => {
+const getStudentSessionPlans = (req, res) => {
   const { co_id } = req.body
   pool.getConnection((err, conn) => {
       if(err) res.status(400).send('Connection Error');
@@ -72,7 +64,7 @@ const getTeacherSessionPlans = (req, res) => {
     })
 }
 
-const getTeacherSections = (req, res) => {
+const getStudentSections = (req, res) => {
   const { sp_id } = req.body
   pool.getConnection((err, conn) => {
       if(err) res.status(400).send('Connection Error');
@@ -121,4 +113,4 @@ const getContent = (req, res) => {
 }
 
 
-module.exports = { getTeacherCohort, getTeacherCourses, getTeacherSessionPlans, getTeacherSections, getContent }
+module.exports = {  getStudentCourses, getStudentSessionPlans, getStudentSections, getContent }

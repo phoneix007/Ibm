@@ -27,6 +27,7 @@ export const login = (email, password, role) => async(dispatch) => {
 export const logout = () => (dispatch) => {
     localStorage.removeItem('userInfo')
     localStorage.removeItem('userRole')
+    localStorage.removeItem('urlParameter')
     dispatch({ type: USER_LOGOUT })
 }
 

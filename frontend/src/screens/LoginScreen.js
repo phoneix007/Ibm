@@ -14,15 +14,19 @@ export const LoginScreen = ({ location, history }) => {
     const dispatch = useDispatch()
 
     const userLogin = useSelector(state => state.userLogin)
-    const { loading, error, userInfo } = userLogin
+    const { loading, error, userInfo, userRole } = userLogin
     
     const redirect = location.search ? location.search.split('=')[1] : '/'
 
     useEffect(()=> {
-        if(userInfo) {
-            history.push(redirect)
+        
+        if(userInfo && userRole === 'Teacher') {
+            history.push("/home")
         }
-    }, [history, redirect, userInfo])
+        else if(userInfo && userRole === 'Student') {
+            history.push("/homestd")
+        }
+    }, [history, redirect, userInfo, userRole])
 
 
     const submitHandler = (e) => {
@@ -32,7 +36,7 @@ export const LoginScreen = ({ location, history }) => {
 
     return (
         <FormContainer>
-            <h1>Sign In</h1>
+            <h1 style={{"text-align": "center"}}>Sign In</h1>
             {error && <Message variant="danger">{error}</Message>}
             {loading && <Loader></Loader>}
             <Form onSubmit={submitHandler}>
