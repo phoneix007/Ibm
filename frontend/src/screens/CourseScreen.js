@@ -7,6 +7,7 @@ import Message from '../components/Message'
 import { courseDetails } from '../actions/teacherActions'
 import { coursesDetails } from '../actions/studentActions'
 import { setTemp } from '../actions/urlActions'
+// import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
 
 export const CourseScreen = ({ history, match }) => {
@@ -22,13 +23,17 @@ export const CourseScreen = ({ history, match }) => {
     const { urlParameter } = urlVar
 
     useEffect(()=> {
-        if(userInfo) {
+        if(userInfo&&userRole==="Teacher" ) {
             dispatch(courseDetails(urlParameter.courseUrl))
+        }
+        else if(userInfo&&userRole==="Student" ) {
+         //   dispatch(courseDetails(urlParameter.coursesUrl))
+         dispatch(coursesDetails(urlParameter.coursesUrl))  
         }
         else {
             history.push('/login')
         }
-    }, [dispatch, history, userInfo, urlParameter])
+    }, [dispatch, history, userRole, userInfo, urlParameter])
 
 
     return (
@@ -42,6 +47,7 @@ export const CourseScreen = ({ history, match }) => {
         <Dropdown.Toggle variant="success" id="dropdown-basic">
         Menu
         </Dropdown.Toggle>
+
         {
             userRole==='Student'?
             <Dropdown.Menu show>
@@ -59,6 +65,7 @@ export const CourseScreen = ({ history, match }) => {
             </Dropdown.Menu>
             
         }
+        
         </Dropdown>
         </div>
         <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>

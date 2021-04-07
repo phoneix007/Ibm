@@ -2,7 +2,7 @@ import { TEACHER_COHORT_REQUEST, TEACHER_COHORT_SUCCESS, TEACHER_COHORT_FAIL, TE
 import axios from 'axios'
 
 
-export const coursesDetails = (th_id) => async(dispatch, getState) => {
+export const coursesDetails = (st_id) => async(dispatch, getState) => {
     try {
         dispatch({ type: TEACHER_COURSES_REQUEST })
         
@@ -11,8 +11,8 @@ export const coursesDetails = (th_id) => async(dispatch, getState) => {
                 'Content-Type': 'application/json'
             }
         }
-
-        const { data } = await axios.post('/api/student/courses', {th_id}, config)
+        console.log(`st_id:${st_id}`)
+        const { data } = await axios.post('/api/student/courses', {st_id}, config)
         dispatch({ type: TEACHER_COURSES_SUCCESS, payload: data })
 
     } catch (error) {
