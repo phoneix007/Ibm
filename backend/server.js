@@ -22,8 +22,7 @@ app.use(cors())
 app.use('/api/users', userRoutes)
 app.use('/api/teachers', teacherRoutes)
 app.use('/api/student', studentRoutes)
-// app.use('/api/sessions', sessionRoutes)
-// app.use('/api/courses', courseRoutes)
+
 
 app.use(errorHandler)
 
