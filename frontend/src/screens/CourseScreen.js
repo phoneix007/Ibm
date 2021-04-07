@@ -27,8 +27,8 @@ export const CourseScreen = ({ history, match }) => {
             dispatch(courseDetails(urlParameter.courseUrl))
         }
         else if(userInfo&&userRole==="Student" ) {
-            dispatch(courseDetails(urlParameter.coursesUrl))
-            
+         //   dispatch(courseDetails(urlParameter.coursesUrl))
+         dispatch(coursesDetails(urlParameter.coursesUrl))  
         }
         else {
             history.push('/login')

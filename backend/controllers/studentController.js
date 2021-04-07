@@ -4,10 +4,11 @@ const pool = require('../config/db')
 
 const getStudentCourses = (req, res) => {
   const { st_id } = req.body
+  console.log(`inside backend st id=${st_id}`)
   pool.getConnection((err, conn) => {
       if(err) res.status(400).send('Connection Error');
       else {
-        let sql1 = `SELECT ch_id FROM COHORTSTUDENT WHERE ST_id = ?;`
+        /*let sql1 = `SELECT ch_id FROM COHORTSTUDENT WHERE _id = ?;`
         conn.query(sql1, [st_id], (err, result) => {
           if(err) res.status(400).send('Querry Error');
           else {
@@ -20,14 +21,16 @@ const getStudentCourses = (req, res) => {
             }
           }
           conn.release();
-        })
-        let sql = `SELECT * FROM Course a INNER JOIN CurriculumDetails b ON a.CO_id=b.CO_id WHERE ch_id = ?;`
-        
+        })*/
+        let sql = `SELECT * FROM Course a INNER JOIN CurriculumDetails b ON a.CO_id=b.CO_id WHERE cu_id = ?;`
+        let ch_id=st_id;
+        console.log(`ch_id:${ch_id}`)
         conn.query(sql, [ch_id], (err, result) => {
             if(err) res.status(400).send('Querry Error');
             else {
               if(result.length > 0) {
                   res.json(result)
+                  console.log("123")
               }
               else {
                   res.status(401)
