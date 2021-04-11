@@ -23,7 +23,7 @@ export const coursesDetails = (st_id) => async(dispatch, getState) => {
     }
 }
 
-export const sessionDetails = (co_id) => async(dispatch, getState) => {
+export const studentsessionDetails = (co_id) => async(dispatch, getState) => {
     try {
         dispatch({ type: TEACHER_SESSIONS_REQUEST })
         
@@ -33,7 +33,7 @@ export const sessionDetails = (co_id) => async(dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.post('/api/teachers/sessions', {co_id}, config)
+        const { data } = await axios.post('/api/student/sessions', {co_id}, config)
         dispatch({ type: TEACHER_SESSIONS_SUCCESS, payload: data })
 
     } catch (error) {

@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { sessionDetails } from '../actions/teacherActions'
+import { studentsessionDetails } from '../actions/studentActions'
+
 import Dropdown from 'react-bootstrap/Dropdown'
 import { setTemp } from '../actions/urlActions'
 
@@ -21,8 +23,13 @@ export const SessionScreen = ({ history, match }) => {
     const { urlParameter } = urlVar
 
     useEffect(()=> {
-        if(userInfo) {
+        if(userInfo && userRole === 'Teacher') {
             dispatch(sessionDetails(urlParameter.sessionUrl))
+        }
+        else if(userInfo && userRole === 'Student')
+        {
+            dispatch(studentsessionDetails(urlParameter.sessionUrl))
+            
         }
         else {
             history.push('/login')
@@ -50,7 +57,7 @@ export const SessionScreen = ({ history, match }) => {
             <Dropdown.Item href="#/action-1">Attending session</Dropdown.Item>
             </Dropdown.Menu>
             :
-            <Dropdown.Menu>
+            <Dropdown.Menu show>
             <Dropdown.Item ><Link to={`/home`}>Dashboard</Link></Dropdown.Item>
             <Dropdown.Item ><Link to={`/unlock`}>Unlock and Teach Session</Link></Dropdown.Item>
             <Dropdown.Item ><Link to={`/cohort`}>Mangage Curriculum</Link></Dropdown.Item>

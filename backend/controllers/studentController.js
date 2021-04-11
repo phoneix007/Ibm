@@ -30,9 +30,10 @@ const getStudentSessionPlans = (req, res) => {
   pool.getConnection((err, conn) => {
       if(err) res.status(400).send('Connection Error');
       else {
-        let sql = `SELECT * FROM SessionPlan WHERE CO_id = ?;`
+        //let sql = `SELECT * FROM SessionPlan WHERE CO_id = ?;`
+        let sql = `SELECT SessionPlan.SP_id,SessionPlan.SP_Name,SessionPlan.SP_Duration,SessionPlan.SP_Sequence,SessionPlan.CO_id FROM SessionPlan,CompletedSession WHERE SessionPlan.SP_id=CompletedSession.SP_id AND SessionPlan.CO_id=?`
         
-        conn.query(sql, [co_id], (err, result) => {
+        conn.query(sql,[co_id], (err, result) => {
             if(err) res.status(400).send('Querry Error');
             else {
               if(result.length > 0) {
