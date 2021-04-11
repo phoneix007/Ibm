@@ -10,14 +10,14 @@ export const HomeScreen = ({ history }) => {
     const dispatch = useDispatch()
 
     const userLogin = useSelector(state => state.userLogin)
-    const {loading,error, userInfo, role } = userLogin
+    const {loading,error, userInfo, userRole } = userLogin
 
     useEffect(()=> {
         if(!userInfo ) {
             history.push('/login')
         }
         
-    }, [dispatch, history, role, userInfo])
+    }, [dispatch, history, userRole, userInfo])
 
 
     return (
@@ -32,15 +32,15 @@ export const HomeScreen = ({ history }) => {
   </Dropdown.Toggle>
 
   <Dropdown.Menu show>
-  <Dropdown.Item href="#/action-1">Unlock and Teach Sessions</Dropdown.Item>
-            <Dropdown.Item href="/cohort">Manage Curriculum</Dropdown.Item>
+            <Dropdown.Item ><Link to={`/home`}>Dashboard</Link></Dropdown.Item>
+            <Dropdown.Item ><Link to={`/cohort`}>View Curriculum</Link></Dropdown.Item>
             <Dropdown.Item href="#/action-3">Conduct Assessment</Dropdown.Item>
             <Dropdown.Item href="#/action-1">View students’ performance</Dropdown.Item>
-  </Dropdown.Menu>
+            </Dropdown.Menu>
 </Dropdown>
         
         <h1 style={{"text-align": "center"}}>Welcome to smart kaksha..</h1>
-        <h1 style={{"text-align": "center"}}>{role} Dashboard</h1>
+        <h1 style={{"text-align": "center"}}>{userRole} Dashboard</h1>
     </div> }
     </>
     ) 

@@ -19,13 +19,14 @@ export const LoginScreen = ({ location, history }) => {
     const redirect = location.search ? location.search.split('=')[1] : '/'
 
     useEffect(()=> {
-        if(userInfo&&userRole==='Teacher') {
+        
+        if(userInfo && userRole === 'Teacher') {
             history.push("/home")
         }
-        else if(userInfo&&userRole==='Student') {
+        else if(userInfo && userRole === 'Student') {
             history.push("/homestd")
         }
-    }, [history, redirect, userInfo,userRole])
+    }, [history, redirect, userInfo, userRole])
 
 
     const submitHandler = (e) => {

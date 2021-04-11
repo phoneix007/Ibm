@@ -6,6 +6,7 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { cohortDeatils } from '../actions/teacherActions'
 import Dropdown from 'react-bootstrap/Dropdown'
+import { setTemp } from '../actions/urlActions'
 export const HomeScreen = ({ history }) => {
     const dispatch = useDispatch()
 
@@ -30,13 +31,13 @@ export const HomeScreen = ({ history }) => {
   <Dropdown.Toggle variant="success" id="dropdown-basic">
   Menu
   </Dropdown.Toggle>
-
   <Dropdown.Menu show>
-  <Dropdown.Item href="#/action-1">Unlock and Teach Sessions</Dropdown.Item>
-            <Dropdown.Item href="/courses/1">Manage Curriculum</Dropdown.Item>
-            <Dropdown.Item href="#/action-3">Conduct Assessment</Dropdown.Item>
-            <Dropdown.Item href="#/action-1">View students’ performance</Dropdown.Item>
-  </Dropdown.Menu>
+            <Dropdown.Item ><Link to={`/homestd`}>Dashboard</Link></Dropdown.Item>
+            <Dropdown.Item ><Link to={`/courses`} onClick={() => dispatch(setTemp('coursesUrl',userInfo.ST_id))}
+  > View your performance</Link></Dropdown.Item>
+            <Dropdown.Item href="#/action-3">View curriculum</Dropdown.Item>
+            <Dropdown.Item href="#/action-1">Attending session</Dropdown.Item>
+            </Dropdown.Menu>
 </Dropdown>
         
         <h1 style={{"text-align": "center"}}>Welcome to smart kaksha..</h1>

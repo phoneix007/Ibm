@@ -6,24 +6,29 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { sessionSectionDetails } from '../actions/teacherActions'
 import Dropdown from 'react-bootstrap/Dropdown'
+import { setTemp } from '../actions/urlActions'
 
-export const SessionSectionScreen = ({ history, match }) => {
+export const SessionSectionScreen = ({ history }) => {
     const dispatch = useDispatch()
 
     const userLogin = useSelector(state => state.userLogin)
-    const { userInfo, role } = userLogin
+    const { userInfo, userRole } = userLogin
 
     const sessionSectionDetail = useSelector(state => state.teacherSessionSection)
     const { loading, SessionSectionInfo, error } = sessionSectionDetail
 
+    const urlVar = useSelector(state => state.urlVar)
+    const { urlParameter } = urlVar
+
+
     useEffect(()=> {
         if(userInfo) {
-            dispatch(sessionSectionDetails(match.params.id))
+            dispatch(sessionSectionDetails(urlParameter.sectionUrl))
         }
         else {
             history.push('/login')
         }
-    }, [dispatch, history, match, role, userInfo])
+    }, [dispatch, history, urlParameter, userInfo])
 
 
     return (
@@ -38,12 +43,24 @@ export const SessionSectionScreen = ({ history, match }) => {
             Menu
         </Dropdown.Toggle>
         
-        <Dropdown.Menu show>
-            <Dropdown.Item href="#/action-1">Unlock and Teach Sessions</Dropdown.Item>
-            <Dropdown.Item href="#/action-2">Manage Curriculum</Dropdown.Item>
+        {
+            userRole==='Student'?
+            <Dropdown.Menu show>
+            <Dropdown.Item ><Link to={`/homestd`}>Dashboard</Link></Dropdown.Item>
+            <Dropdown.Item ><Link to={`/courses`}> View your performance</Link></Dropdown.Item>
+            <Dropdown.Item href="#/action-3">View curriculum</Dropdown.Item>
+            <Dropdown.Item href="#/action-1">Attending session</Dropdown.Item>
+            </Dropdown.Menu>
+            :
+            <Dropdown.Menu show>
+            <Dropdown.Item ><Link to={`/home`}>Dashboard</Link></Dropdown.Item>
+            <Dropdown.Item ><Link to={`/cohort`}>View Curriculum</Link></Dropdown.Item>
             <Dropdown.Item href="#/action-3">Conduct Assessment</Dropdown.Item>
             <Dropdown.Item href="#/action-1">View students’ performance</Dropdown.Item>
-        </Dropdown.Menu>
+            </Dropdown.Menu>
+            
+        }
+        
         </Dropdown>
         <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
         <thead>
@@ -58,7 +75,7 @@ export const SessionSectionScreen = ({ history, match }) => {
             {SessionSectionInfo.map((key, index) => 
             <tr key={key.SS_id}>
             <td>{key.SS_id}</td>
-            <Link to={`/content/${key.CT_id}`}><td>{key.SS_Content}</td></Link>
+            <Link to={`/content`} onClick={() => dispatch(setTemp('contentUrl', key.CT_id))}><td>{key.SS_Content}</td></Link>
             <td>{key.SS_ContentType}</td>
             <td>{key.SS_Duration === null ?  `${key.SS_Duration}` : key.SS_Duration}</td>
           </tr>

@@ -16,7 +16,7 @@ const child = {
 }
 
 
-export const ContentScreen = ({ history, match }) => {
+export const ContentScreen = ({ history }) => {
     const dispatch = useDispatch()
 
     const userLogin = useSelector(state => state.userLogin)
@@ -25,14 +25,18 @@ export const ContentScreen = ({ history, match }) => {
     const contentDetail = useSelector(state => state.content)
     const { loading, ContentInfo, error } = contentDetail
 
+    const urlVar = useSelector(state => state.urlVar)
+    const { urlParameter } = urlVar
+
+
     useEffect(()=> {
         if(userInfo ) {
-            dispatch(contentDetails(match.params.id))
+            dispatch(contentDetails(urlParameter.contentUrl))
         }
         else {
             history.push('/login') 
         }
-    }, [dispatch, history, match, role, userInfo])
+    }, [dispatch, history, urlParameter, role, userInfo])
 
 
     return (
