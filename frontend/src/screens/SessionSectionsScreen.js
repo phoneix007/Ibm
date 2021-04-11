@@ -52,15 +52,15 @@ export const SessionSectionScreen = ({ history }) => {
             <Dropdown.Item href="#/action-1">Attending session</Dropdown.Item>
             </Dropdown.Menu>
             :
-            <Dropdown.Menu show>
+            <Dropdown.Menu>
             <Dropdown.Item ><Link to={`/home`}>Dashboard</Link></Dropdown.Item>
-            <Dropdown.Item ><Link to={`/cohort`}>View Curriculum</Link></Dropdown.Item>
+            <Dropdown.Item ><Link to={`/unlock`}>Unlock and Teach Session</Link></Dropdown.Item>
+            <Dropdown.Item ><Link to={`/cohort`}>Mangage Curriculum</Link></Dropdown.Item>
             <Dropdown.Item href="#/action-3">Conduct Assessment</Dropdown.Item>
             <Dropdown.Item href="#/action-1">View students’ performance</Dropdown.Item>
             </Dropdown.Menu>
             
         }
-        
         </Dropdown>
         <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
         <thead>

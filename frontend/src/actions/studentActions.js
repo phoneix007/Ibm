@@ -1,8 +1,8 @@
-import { TEACHER_COHORT_REQUEST, TEACHER_COHORT_SUCCESS, TEACHER_COHORT_FAIL, TEACHER_COURSES_REQUEST, TEACHER_COURSES_SUCCESS, TEACHER_COURSES_FAIL, TEACHER_SESSIONS_REQUEST, TEACHER_SESSIONS_SUCCESS, TEACHER_SESSIONS_FAIL, TEACHER_SESSION_SECTIONS_REQUEST, TEACHER_SESSION_SECTIONS_SUCCESS, TEACHER_SESSION_SECTIONS_FAIL } from '../constants/teacherConstants'
+import { TEACHER_COURSES_REQUEST, TEACHER_COURSES_SUCCESS, TEACHER_COURSES_FAIL, TEACHER_SESSIONS_REQUEST, TEACHER_SESSIONS_SUCCESS, TEACHER_SESSIONS_FAIL, TEACHER_SESSION_SECTIONS_REQUEST, TEACHER_SESSION_SECTIONS_SUCCESS, TEACHER_SESSION_SECTIONS_FAIL } from '../constants/teacherConstants'
 import axios from 'axios'
 
 
-export const coursesDetails = (th_id) => async(dispatch, getState) => {
+export const coursesDetails = (st_id) => async(dispatch, getState) => {
     try {
         dispatch({ type: TEACHER_COURSES_REQUEST })
         
@@ -11,8 +11,8 @@ export const coursesDetails = (th_id) => async(dispatch, getState) => {
                 'Content-Type': 'application/json'
             }
         }
-
-        const { data } = await axios.post('/api/student/courses', {th_id}, config)
+        console.log(`st_id:${st_id}`)
+        const { data } = await axios.post('/api/student/courses', {st_id}, config)
         dispatch({ type: TEACHER_COURSES_SUCCESS, payload: data })
 
     } catch (error) {

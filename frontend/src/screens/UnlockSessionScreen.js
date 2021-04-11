@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { sessionDetails } from '../actions/teacherActions'
+import { sessionDetails, sessionStatusDetails, unlockSession } from '../actions/teacherActions'
 import Dropdown from 'react-bootstrap/Dropdown'
 import { setTemp } from '../actions/urlActions'
+import { Button } from 'react-bootstrap'
 
-export const SessionScreen = ({ history, match }) => {
+export const UnlockSessionScreen = ({ history, match }) => {
     const dispatch = useDispatch()
 
     const userLogin = useSelector(state => state.userLogin)
@@ -20,45 +21,48 @@ export const SessionScreen = ({ history, match }) => {
     const urlVar = useSelector(state => state.urlVar)
     const { urlParameter } = urlVar
 
+    const SessionStatus = useSelector(state => state.teacherSessionStatus)
+    const { loading: statusLoading, SessionStatusInfo, error: err } = SessionStatus
+
+    const checkStatus = (key) => {
+        let s = SessionStatusInfo.length
+        for(let i = 0; i < s; i++) if(SessionStatusInfo[i].SP_id === key) return true
+        return false
+    }
+
+    const funct = (ch_id, sp_id, co_id, tc_id, to_id) => {
+        window.location.reload()
+        dispatch(unlockSession(ch_id, sp_id, co_id, tc_id, to_id))
+    }
+
     useEffect(()=> {
-        if(userInfo) {
+        if(userInfo && userRole === "Teacher") {
             dispatch(sessionDetails(urlParameter.sessionUrl))
+            dispatch(sessionStatusDetails(urlParameter.sessionUrl))
         }
         else {
             history.push('/login')
         }
-    }, [dispatch, history, urlParameter, userInfo])
+    }, [dispatch, history, urlParameter, userInfo, userRole])
 
 
     return (
         <>
-        <h1 style={{"text-align": "center"}}>Sessions</h1>
-        { loading ? (<Loader>Loading....</Loader>) : error ? <Message variant='danger'>{error}</Message> :
+        <h1 style={{"text-align": "center"}}>Unlock Sessions</h1>
+        { loading || statusLoading ? (<Loader>Loading....</Loader>) : error || err ? <Message variant='danger'>{error || err}</Message> :
          <div>
         
                 <Dropdown>
         <Dropdown.Toggle variant="success" id="dropdown-basic">
         Menu
         </Dropdown.Toggle>
-        
-        {
-            userRole === 'Student'?
-            <Dropdown.Menu show>
-            <Dropdown.Item ><Link to={`/homestd`}>Dashboard</Link></Dropdown.Item>
-            <Dropdown.Item ><Link to={`/courses`}> View your performance</Link></Dropdown.Item>
-            <Dropdown.Item href="#/action-3">View curriculum</Dropdown.Item>
-            <Dropdown.Item href="#/action-1">Attending session</Dropdown.Item>
-            </Dropdown.Menu>
-            :
-            <Dropdown.Menu>
+        <Dropdown.Menu>
             <Dropdown.Item ><Link to={`/home`}>Dashboard</Link></Dropdown.Item>
             <Dropdown.Item ><Link to={`/unlock`}>Unlock and Teach Session</Link></Dropdown.Item>
             <Dropdown.Item ><Link to={`/cohort`}>Mangage Curriculum</Link></Dropdown.Item>
             <Dropdown.Item href="#/action-3">Conduct Assessment</Dropdown.Item>
             <Dropdown.Item href="#/action-1">View students’ performance</Dropdown.Item>
             </Dropdown.Menu>
-            
-        }
         </Dropdown>
         
         <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
@@ -66,15 +70,18 @@ export const SessionScreen = ({ history, match }) => {
             <tr>
                 <th>SESSION ID</th>
                 <th>SESSION NAME</th>
-                <th>SESSION DURATION</th>
+                <th>STATUS</th>
             </tr>
         </thead>
         <tbody>
             {SessionInfo.map((key, index) => 
             <tr key={key.SP_id}>
             <td>{key.SP_id}</td>
-            <Link to={`/sections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>{key.SP_Name}</td></Link>
-            <td>{key.SP_Duration === null ?  `${key.SP_Duration}` : key.SP_Duration}</td>
+            <td>{key.SP_Name}</td>
+            {checkStatus(key.SP_id) ? <Link to={`/sections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link> : 
+            <td>
+                <Button size="sm" onClick={() => funct(1, key.SP_id, key.CO_id, userInfo.TC_id, 1)}>Unlock</Button>
+            </td>}
           </tr>
           )}
         </tbody>
@@ -84,4 +91,4 @@ export const SessionScreen = ({ history, match }) => {
     ) 
 }
 
-export default SessionScreen
+export default UnlockSessionScreen
