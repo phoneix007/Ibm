@@ -10,6 +10,8 @@ import SessionSectionScreen from './screens/SessionSectionsScreen'
 import ContentScreen from './screens/ContentScreen'
 import HomeScreen from './screens/HomeScreen'
 import HomeScreenstd from './screens/homestudent'
+import UnlockScreen from './screens/UnlockScreen'
+import UnlockSessionScreen from './screens/UnlockSessionScreen'
 
 const  App = () => {
   return (
@@ -26,6 +28,8 @@ const  App = () => {
           <Route path='/content' component={ContentScreen} />
           <Route path='/home' component={HomeScreen} />
           <Route path='/homestd' component={HomeScreenstd} />
+          <Route path='/unlock' component={UnlockScreen} />
+          <Route path='/unlocksessions' component={UnlockSessionScreen} />
         </Container>
       </main>
       

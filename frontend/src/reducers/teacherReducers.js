@@ -1,4 +1,4 @@
-import { TEACHER_COHORT_REQUEST, TEACHER_COHORT_SUCCESS, TEACHER_COHORT_FAIL, TEACHER_RESET, TEACHER_COURSES_REQUEST, TEACHER_COURSES_SUCCESS, TEACHER_COURSES_FAIL, TEACHER_SESSIONS_REQUEST, TEACHER_SESSIONS_SUCCESS, TEACHER_SESSIONS_FAIL, TEACHER_SESSION_SECTIONS_REQUEST, TEACHER_SESSION_SECTIONS_SUCCESS, TEACHER_SESSION_SECTIONS_FAIL, TEACHER_TEMP_SET, TEACHER_TEMP_RESET } from '../constants/teacherConstants'
+import { TEACHER_COHORT_REQUEST, TEACHER_COHORT_SUCCESS, TEACHER_COHORT_FAIL, TEACHER_RESET, TEACHER_COURSES_REQUEST, TEACHER_COURSES_SUCCESS, TEACHER_COURSES_FAIL, TEACHER_SESSIONS_REQUEST, TEACHER_SESSIONS_SUCCESS, TEACHER_SESSIONS_FAIL, TEACHER_SESSION_SECTIONS_REQUEST, TEACHER_SESSION_SECTIONS_SUCCESS, TEACHER_SESSION_SECTIONS_FAIL, TEACHER_TEMP_SET, TEACHER_TEMP_RESET, TEACHER_SESSION_STATUS_REQUEST, TEACHER_SESSION_STATUS_SUCCESS, TEACHER_SESSION_STATUS_FAIL } from '../constants/teacherConstants'
 
 export const teacherCohortReducer = (state={ TeacherInfo: [] }, action) => {
     switch(action.type) {
@@ -60,6 +60,19 @@ export const teacherTempReducer = (state={ urlParameter: {} }, action) => {
             return { urlParameter: {...state.urlParameter, [action.obj]: action.payload }}
         case TEACHER_TEMP_RESET:
             return { }
+        default:
+            return state
+    }
+}
+
+export const teacherSessionStatusReducer = (state={ SessionStatusInfo: [] }, action) => {
+    switch(action.type) {
+        case TEACHER_SESSION_STATUS_REQUEST:
+            return { loading: true, SessionStatusInfo: [] }
+        case TEACHER_SESSION_STATUS_SUCCESS:
+            return { loading: false, SessionStatusInfo: action.payload }
+        case TEACHER_SESSION_STATUS_FAIL:
+            return { loading: false, error: action.payload }
         default:
             return state
     }
