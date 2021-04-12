@@ -49,33 +49,33 @@ export const UnlockSessionScreen = ({ history, match }) => {
 
     return (
         <>
-        <h1 style={{"text-align": "center"}}>Unlock Sessions</h1>
-        { loading || statusLoading ? (<Loader>Loading....</Loader>) : error || err ? <Message variant='danger'>{error || err}</Message> :
-         <div>
-            <DropDown Role={userRole}/>
-            <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
-                <thead>
-                    <tr>
-                        <th>SESSION ID</th>
-                        <th>SESSION NAME</th>
-                        <th>STATUS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {SessionInfo.map((key, index) => 
-                    <tr key={key.SP_id}>
-                        <td>{key.SP_id}</td>
-                        <td>{key.SP_Name}</td>
-                        {checkStatus(key.SP_id) ? <Link to={`/sections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link> : 
-                        <td>
-                            <Button size="sm" onClick={() => funct(urlParameter.cohortID, key.SP_id, key.CO_id, userInfo.TC_id, 1)}>Unlock</Button>
-                        </td>}
-                    </tr>
-                    )}
-                </tbody>
-            </Table>
-        </div> }
-    </>
+            <h1 style={{"text-align": "center"}}>Unlock Sessions</h1>
+            { loading || statusLoading ? (<Loader>Loading....</Loader>) : error || err ? <Message variant='danger'>{error || err}</Message> :
+            <div>
+                <DropDown Role={userRole}/>
+                <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
+                    <thead>
+                        <tr>
+                            <th>SESSION ID</th>
+                            <th>SESSION NAME</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {SessionInfo.map((key, index) => 
+                        <tr key={key.SP_id}>
+                            <td>{key.SP_id}</td>
+                            <td>{key.SP_Name}</td>
+                            {checkStatus(key.SP_id) ? <Link to={`/sections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link> : 
+                            <td>
+                                <Button size="sm" onClick={() => funct(urlParameter.cohortID, key.SP_id, key.CO_id, userInfo.TC_id, 1)}>Unlock</Button>
+                            </td>}
+                        </tr>
+                        )}
+                    </tbody>
+                </Table>
+            </div> }
+        </>
     ) 
 }
 

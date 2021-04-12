@@ -19,14 +19,14 @@ export const HomeScreen = ({ history }) => {
 
     return (
         <>
-        <h1 style={{"text-align": "center"}}>Dashboard</h1>
-        { loading ? (<Loader>Loading....</Loader>) : error ? <Message variant='danger'>{error}</Message> :
-        <div>
-            <DropDown Role={userRole}/>
-            <h1 style={{"text-align": "center"}}>Welcome to smart kaksha..</h1>
-            <h1 style={{"text-align": "center"}}>{userRole} Dashboard</h1>
-    </div> }
-    </>
+            <h1 style={{"text-align": "center"}}>Dashboard</h1>
+            { loading ? (<Loader>Loading....</Loader>) : error ? <Message variant='danger'>{error}</Message> :
+            <div>
+                <DropDown Role={userRole}/>
+                <h1 style={{"text-align": "center"}}>Welcome to smart kaksha..</h1>
+                <h1 style={{"text-align": "center"}}>{userRole} Dashboard</h1>
+            </div> }
+        </>
     ) 
 }
 

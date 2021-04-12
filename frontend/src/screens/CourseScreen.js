@@ -37,29 +37,29 @@ export const CourseScreen = ({ history, match }) => {
 
     return (
         <>
-        <h1 style={{"text-align": "center"}}>Courses</h1>
-        { loading ? (<Loader>Loading....</Loader>) : error ? <Message variant='danger'>{error}</Message> :
-        <div>
-            <DropDown Role={userRole}/>
-            <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
-                <thead>
-                    <tr>
-                        <th>COURSE ID</th>
-                        <th>COURSE NAME</th>
-                        <th>INSERT DATE</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {CoursesInfo.map((key, index) => 
-                    <tr key={key.CO_id}>
-                        <td>{key.CO_id}</td>
-                        <Link to={`/sessions`} onClick={() => dispatch(setTemp('sessionUrl', key.CO_id))}><td>{key.CO_Name}</td></Link>
-                        <td>{key.CO_Insertdate === null ?  `${key.CO_Insertdate}` : key.CO_Insertdate}</td>
-                    </tr> )}
-                </tbody>
-            </Table> 
-        </div> }
-    </>
+            <h1 style={{"text-align": "center"}}>Courses</h1>
+            { loading ? (<Loader>Loading....</Loader>) : error ? <Message variant='danger'>{error}</Message> :
+            <div>
+                <DropDown Role={userRole}/>
+                <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
+                    <thead>
+                        <tr>
+                            <th>COURSE ID</th>
+                            <th>COURSE NAME</th>
+                            <th>INSERT DATE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {CoursesInfo.map((key, index) => 
+                        <tr key={key.CO_id}>
+                            <td>{key.CO_id}</td>
+                            <Link to={`/sessions`} onClick={() => dispatch(setTemp('sessionUrl', key.CO_id))}><td>{key.CO_Name}</td></Link>
+                            <td>{key.CO_Insertdate === null ?  `${key.CO_Insertdate}` : key.CO_Insertdate}</td>
+                        </tr> )}
+                    </tbody>
+                </Table> 
+            </div> }
+        </>
     ) 
 }
 

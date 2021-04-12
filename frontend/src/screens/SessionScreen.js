@@ -51,35 +51,35 @@ export const SessionScreen = ({ history, match }) => {
 
     return (
         <>
-        <h1 style={{"text-align": "center"}}>Sessions</h1>
-        { loading || statusLoading ? (<Loader>Loading....</Loader>) : error || err ? <Message variant='danger'>{error || err}</Message> :
-         <div>
-            <DropDown Role={userRole}/>
-            <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
-                <thead>
-                    <tr>
-                        <th>SESSION ID</th>
-                        <th>SESSION NAME</th>
-                        <th>SESSION DURATION</th>
-                        <th>STATUS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {SessionInfo.map((key, index) => 
-                        <tr key={key.SP_id}>
-                            <td>{key.SP_id}</td>
-                            <td>{key.SP_Name}</td>
-                            <td>{key.SP_Duration === null ?  `${key.SP_Duration}` : key.SP_Duration}</td>
-                            {
-                                userRole === "Teacher" ? checkStatus(key.SP_id) ? <Link to={`/sections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link> : <td>Locked</td> :
-                                <Link to={`/sections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link>
-                            }
-                        </tr>)
-                    }
-                </tbody>
-            </Table>
-    </div> }
-    </>
+            <h1 style={{"text-align": "center"}}>Sessions</h1>
+            { loading || statusLoading ? (<Loader>Loading....</Loader>) : error || err ? <Message variant='danger'>{error || err}</Message> :
+            <div>
+                <DropDown Role={userRole}/>
+                <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
+                    <thead>
+                        <tr>
+                            <th>SESSION ID</th>
+                            <th>SESSION NAME</th>
+                            <th>SESSION DURATION</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {SessionInfo.map((key, index) => 
+                            <tr key={key.SP_id}>
+                                <td>{key.SP_id}</td>
+                                <td>{key.SP_Name}</td>
+                                <td>{key.SP_Duration === null ?  `${key.SP_Duration}` : key.SP_Duration}</td>
+                                {
+                                    userRole === "Teacher" ? checkStatus(key.SP_id) ? <Link to={`/sections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link> : <td>Locked</td> :
+                                    <Link to={`/sections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link>
+                                }
+                            </tr>)
+                        }
+                    </tbody>
+                </Table>
+            </div> }
+        </>
     ) 
 }
 
