@@ -38,6 +38,11 @@ export const SessionScreen = ({ history, match }) => {
         else if(userInfo && userRole === "Student") {
             dispatch(studentsessionDetails(urlParameter.sessionUrl))
         }
+        else if(userInfo && userRole === 'Student')
+        {
+            dispatch(studentsessionDetails(urlParameter.sessionUrl))
+            
+        }
         else {
             history.push('/login')
         }

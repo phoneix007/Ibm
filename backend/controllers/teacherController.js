@@ -54,8 +54,9 @@ const getTeacherSessionPlans = (req, res) => {
       if(err) res.status(400).send('Connection Error');
       else {
         let sql = `SELECT * FROM SessionPlan WHERE CO_id = ?;`
-        
-        conn.query(sql, [co_id], (err, result) => {
+        //let sql = `SELECT SessionPlan.SP_id,SessionPlan.SP_Name,SessionPlan.SP_Duration,SessionPlan.SP_Sequence,SessionPlan.CO_id FROM SessionPlan,CompletedSession WHERE SessionPlan.SP_id=CompletedSession.SP_id ORDER BY SessionPlan.SP_id`
+        /*`SELECT * FROM SessionPlan WHERE SP_id = (SELECT SP_id FROM completedsession WHERE CO_id=?);` */
+        conn.query(sql , [co_id], (err, result) => {
             if(err) res.status(400).send('Querry Error');
             else {
               if(result.length > 0) {

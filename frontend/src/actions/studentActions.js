@@ -23,7 +23,6 @@ export const coursesDetails = (st_id) => async(dispatch, getState) => {
     }
 }
 
-
 export const studentsessionDetails = (co_id) => async(dispatch, getState) => {
     try {
         dispatch({ type: TEACHER_SESSIONS_REQUEST })
