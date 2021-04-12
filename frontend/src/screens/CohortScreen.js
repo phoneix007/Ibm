@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import DropDown from '../components/DropDown'
 import { cohortDeatils } from '../actions/teacherActions'
 import { setTemp } from '../actions/urlActions'
-import Dropdown from 'react-bootstrap/Dropdown'
+
 
 
 export const CohortScreen = ({ history }) => {
@@ -33,19 +34,7 @@ export const CohortScreen = ({ history }) => {
         <h1 style={{"text-align": "center"}}>Cohorts</h1>
         { loading ? (<Loader>Loading....</Loader>) : error ? <Message variant='danger'>{error}</Message> :
         <div>
-            <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                Menu
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                            <Dropdown.Item ><Link to={`/home`}>Dashboard</Link></Dropdown.Item>
-                            <Dropdown.Item ><Link to={`/unlock`}>Unlock and Teach Session</Link></Dropdown.Item>
-                            <Dropdown.Item ><Link to={`/cohort`}>Mangage Curriculum</Link></Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Conduct Assessment</Dropdown.Item>
-                            <Dropdown.Item href="#/action-1">View students’ performance</Dropdown.Item>
-                            </Dropdown.Menu>
-            </Dropdown>
+            <DropDown Role={userRole}/>
         
             <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
             

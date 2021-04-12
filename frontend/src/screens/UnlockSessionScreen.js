@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import DropDown from '../components/DropDown'
 import { sessionDetails, sessionStatusDetails, unlockSession } from '../actions/teacherActions'
-import Dropdown from 'react-bootstrap/Dropdown'
 import { setTemp } from '../actions/urlActions'
 import { Button } from 'react-bootstrap'
+
 
 export const UnlockSessionScreen = ({ history, match }) => {
     const dispatch = useDispatch()
@@ -51,42 +52,29 @@ export const UnlockSessionScreen = ({ history, match }) => {
         <h1 style={{"text-align": "center"}}>Unlock Sessions</h1>
         { loading || statusLoading ? (<Loader>Loading....</Loader>) : error || err ? <Message variant='danger'>{error || err}</Message> :
          <div>
-        
-                <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
-        Menu
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-            <Dropdown.Item ><Link to={`/home`}>Dashboard</Link></Dropdown.Item>
-            <Dropdown.Item ><Link to={`/unlock`}>Unlock and Teach Session</Link></Dropdown.Item>
-            <Dropdown.Item ><Link to={`/cohort`}>Mangage Curriculum</Link></Dropdown.Item>
-            <Dropdown.Item href="#/action-3">Conduct Assessment</Dropdown.Item>
-            <Dropdown.Item href="#/action-1">View students’ performance</Dropdown.Item>
-            </Dropdown.Menu>
-        </Dropdown>
-        
-        <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
-        <thead>
-            <tr>
-                <th>SESSION ID</th>
-                <th>SESSION NAME</th>
-                <th>STATUS</th>
-            </tr>
-        </thead>
-        <tbody>
-            {SessionInfo.map((key, index) => 
-            <tr key={key.SP_id}>
-            <td>{key.SP_id}</td>
-            <td>{key.SP_Name}</td>
-            {checkStatus(key.SP_id) ? <Link to={`/sections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link> : 
-            <td>
-                <Button size="sm" onClick={() => funct(1, key.SP_id, key.CO_id, userInfo.TC_id, 1)}>Unlock</Button>
-            </td>}
-          </tr>
-          )}
-        </tbody>
-    </Table>
-    </div> }
+            <DropDown Role={userRole}/>
+            <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
+                <thead>
+                    <tr>
+                        <th>SESSION ID</th>
+                        <th>SESSION NAME</th>
+                        <th>STATUS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {SessionInfo.map((key, index) => 
+                    <tr key={key.SP_id}>
+                        <td>{key.SP_id}</td>
+                        <td>{key.SP_Name}</td>
+                        {checkStatus(key.SP_id) ? <Link to={`/sections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link> : 
+                        <td>
+                            <Button size="sm" onClick={() => funct(urlParameter.cohortID, key.SP_id, key.CO_id, userInfo.TC_id, 1)}>Unlock</Button>
+                        </td>}
+                    </tr>
+                    )}
+                </tbody>
+            </Table>
+        </div> }
     </>
     ) 
 }
