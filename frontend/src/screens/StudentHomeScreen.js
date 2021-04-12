@@ -28,11 +28,11 @@ export const StudentHomeScreen = ({ history }) => {
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
                         Menu
                     </Dropdown.Toggle>
-                    <Dropdown.Menu>
+                    <Dropdown.Menu show>
                         <Dropdown.Item ><Link to={`/homestd`}>Dashboard</Link></Dropdown.Item>
                         <Dropdown.Item ><Link to={`/courses`} onClick={() => dispatch(setTemp('coursesUrl',userInfo.ST_id))}
-            > View your performance</Link></Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">View curriculum</Dropdown.Item>
+            >View curriculum </Link></Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">View your performance</Dropdown.Item>
                         <Dropdown.Item href="#/action-1">Attending session</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
