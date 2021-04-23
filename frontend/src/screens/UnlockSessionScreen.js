@@ -33,7 +33,7 @@ export const UnlockSessionScreen = ({ history, match }) => {
 
     const updateSessionStatus = (ch_id, sp_id, co_id, tc_id, to_id) => {
         window.location.reload()
-        dispatch(unlockSession(ch_id, sp_id, co_id, tc_id, to_id))
+        dispatch(unlockSession(userInfo, userRole, ch_id, sp_id, co_id, tc_id, to_id))
     }
 
     useEffect(()=> {

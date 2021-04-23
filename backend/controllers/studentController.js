@@ -97,5 +97,38 @@ const getContent = (req, res) => {
     })
 }
 
+const markContentStatus = (req, res) => {
+  const { st_id, ss_id, ct_id } = req.body
+  
+  pool.getConnection((err, conn) => {
+      if(err) res.status(400).send('Connection Error');
+      else {
+        let sql = `INSERT INTO CompletedContent (ST_id, SS_id, CT_id, CompleteDate) VALUES (?, ?, ?, NOW());`
+        
+        conn.query(sql, [st_id, ss_id, ct_id], (err, result) => {
+            if(err) res.status(400).send('Querry Error');
+            else res.json(result)
+            conn.release();
+          })
+        }
+    })
+}
 
-module.exports = {  getStudentCourses, getStudentSessionPlans, getStudentSections, getContent }
+const getContentStatus = (req, res) => {
+  const { st_id } = req.body
+  
+  pool.getConnection((err, conn) => {
+      if(err) res.status(400).send('Connection Error');
+      else {
+        let sql = `SELECT * FROM CompletedContent WHERE ST_id = ?;`
+        
+        conn.query(sql, [st_id], (err, result) => {
+            if(err) res.status(400).send('Querry Error');
+            else res.json(result)
+            conn.release();
+          })
+        }
+    })
+}
+
+module.exports = {  getStudentCourses, getStudentSessionPlans, getStudentSections, getContent, markContentStatus, getContentStatus }

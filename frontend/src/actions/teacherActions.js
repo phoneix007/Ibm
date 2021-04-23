@@ -4,10 +4,13 @@ import axios from 'axios'
 export const cohortDeatils = (tc_id) => async(dispatch, getState) => {
     try {
         dispatch({ type: TEACHER_COHORT_REQUEST })
-        
+        const { userLogin: { userInfo, userRole } } = getState()
+
         const config = {
-            header: { 
-                'Content-Type': 'application/json'
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`,
+                role: `${userRole}`
             }
         }
 
@@ -18,6 +21,7 @@ export const cohortDeatils = (tc_id) => async(dispatch, getState) => {
         dispatch({ 
             type: TEACHER_COHORT_FAIL, 
             payload: error.response && error.response.data.message ? error.response.data.message : error.message 
+            // payload: error.response.status 
         })
     }
 }
@@ -25,10 +29,13 @@ export const cohortDeatils = (tc_id) => async(dispatch, getState) => {
 export const courseDetails = (cu_id) => async(dispatch, getState) => {
     try {
         dispatch({ type: TEACHER_COURSES_REQUEST })
-        
+        const { userLogin: { userInfo, userRole } } = getState()
+
         const config = {
-            header: { 
-                'Content-Type': 'application/json'
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`,
+                role: `${userRole}`
             }
         }
 
@@ -46,10 +53,13 @@ export const courseDetails = (cu_id) => async(dispatch, getState) => {
 export const sessionDetails = (co_id) => async(dispatch, getState) => {
     try {
         dispatch({ type: TEACHER_SESSIONS_REQUEST })
-        
+        const { userLogin: { userInfo, userRole } } = getState()
+
         const config = {
-            header: { 
-                'Content-Type': 'application/json'
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`,
+                role: `${userRole}`
             }
         }
 
@@ -67,10 +77,13 @@ export const sessionDetails = (co_id) => async(dispatch, getState) => {
 export const sessionSectionDetails = (sp_id) => async(dispatch, getState) => {
     try {
         dispatch({ type: TEACHER_SESSION_SECTIONS_REQUEST })
-        
+        const { userLogin: { userInfo, userRole } } = getState()
+
         const config = {
-            header: { 
-                'Content-Type': 'application/json'
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`,
+                role: `${userRole}`
             }
         }
 
@@ -88,10 +101,13 @@ export const sessionSectionDetails = (sp_id) => async(dispatch, getState) => {
 export const sessionStatusDetails = (co_id) => async(dispatch, getState) => {
     try {
         dispatch({ type: TEACHER_SESSION_STATUS_REQUEST })
-        
+        const { userLogin: { userInfo, userRole } } = getState()
+
         const config = {
-            header: { 
-                'Content-Type': 'application/json'
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`,
+                role: `${userRole}`
             }
         }
 
@@ -106,12 +122,13 @@ export const sessionStatusDetails = (co_id) => async(dispatch, getState) => {
     }
 }
 
-export const unlockSession = (ch_id, sp_id, co_id, tc_id, to_id) => async() => {
-    console.log(ch_id)
+export const unlockSession = (userInfo, userRole, ch_id, sp_id, co_id, tc_id, to_id) => async() => {
     try {
         const config = {
-            header: { 
-                'Content-Type': 'application/json'
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`,
+                role: `${userRole}`
             }
         }
         await axios.post('/api/teachers/unlocksession', {ch_id, sp_id, co_id, tc_id, to_id}, config)
