@@ -19,6 +19,7 @@ export const LoginScreen = ({ location, history }) => {
     const redirect = location.search ? location.search.split('=')[1] : '/'
 
     useEffect(()=> {
+        
         if(userInfo && userRole === 'Teacher') {
             history.push("/home")
         }

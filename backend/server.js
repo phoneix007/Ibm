@@ -23,7 +23,6 @@ app.use('/api/users', userRoutes)
 app.use('/api/teachers', teacherRoutes)
 app.use('/api/student', studentRoutes)
 
-
 app.use(errorHandler)
 
 app.listen(port, () => console.log(`listening on ${port}`))

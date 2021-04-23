@@ -36,6 +36,8 @@ export const HomeScreen = ({ history }) => {
             <Dropdown.Item ><Link to={`/courses`} onClick={() => dispatch(setTemp('coursesUrl',userInfo.ST_id))}
   > View your performance</Link></Dropdown.Item>
             <Dropdown.Item href="#/action-3">View curriculum</Dropdown.Item>
+            <Dropdown.Item ><Link to={`/qna`}>Q&A Section</Link></Dropdown.Item>
+                  
             <Dropdown.Item href="#/action-1">Attending session</Dropdown.Item>
             </Dropdown.Menu>
 </Dropdown>

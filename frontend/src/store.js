@@ -2,8 +2,9 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { userLoginReducer } from './reducers/userReducers'
-import { teacherCohortReducer, teacherCoursesReducer, teacherSessionsReducer, teacherSessionSectionReducer, teacherTempReducer } from './reducers/teacherReducers'
+import { teacherCohortReducer, teacherCoursesReducer, teacherSessionsReducer, teacherSessionSectionReducer, teacherTempReducer, teacherSessionStatusReducer } from './reducers/teacherReducers'
 import { contentReducer } from './reducers/contentReducer'
+import { studentContentStatusReducer } from './reducers/studentReducer'
 
 
 const reducer = combineReducers({
@@ -12,8 +13,10 @@ const reducer = combineReducers({
     teacherCourses: teacherCoursesReducer,
     teacherSessions: teacherSessionsReducer,
     teacherSessionSection: teacherSessionSectionReducer,
+    teacherSessionStatus: teacherSessionStatusReducer,
     content: contentReducer,
     urlVar: teacherTempReducer,
+    studentContentStatus: studentContentStatusReducer
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
