@@ -22,7 +22,7 @@ export const UnlockScreen = ({ history }) => {
     const { loading: courseLoading = false, CoursesInfo, error: courseError } = courseDetail
 
     useEffect(()=> {
-        if(userInfo && userRole === "Teacher") {
+        if(userInfo) {
             dispatch(cohortDeatils(userInfo.TC_id))
         }
         else {
@@ -30,7 +30,7 @@ export const UnlockScreen = ({ history }) => {
         }
     }, [dispatch, history, userRole, userInfo])
 
-    const cohortItems = TeacherInfo.map(key => (
+    const cohortItems = error ? null : TeacherInfo.map(key => (
         <option value={[key.CU_id, key.CH_id]}>{key.CH_Name}</option>
     ));
         

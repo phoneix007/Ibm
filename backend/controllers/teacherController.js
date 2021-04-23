@@ -141,6 +141,7 @@ const getSessionStatus = (req, res) => {
 
 const unlockSession = (req, res) => {
   const { ch_id, sp_id, co_id, tc_id, to_id } = req.body
+  
   pool.getConnection((err, conn) => {
       if(err) res.status(400).send('Connection Error');
       else {

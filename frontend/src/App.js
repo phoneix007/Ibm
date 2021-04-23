@@ -12,6 +12,7 @@ import HomeScreen from './screens/HomeScreen'
 import StudentHomeScreen from './screens/StudentHomeScreen'
 import UnlockScreen from './screens/UnlockScreen'
 import UnlockSessionScreen from './screens/UnlockSessionScreen'
+import StudentSessionSectionScreen from './screens/StudentSessionSectionsScreen'
 
 const  App = () => {
   return (
@@ -25,6 +26,7 @@ const  App = () => {
           <Route path='/courses' component={CourseScreen} />
           <Route path='/sessions' component={SessionScreen} />
           <Route path='/sections' component={SessionSectionScreen} />
+          <Route path='/studentsections' component={StudentSessionSectionScreen} />
           <Route path='/content' component={ContentScreen} />
           <Route path='/home' component={HomeScreen} />
           <Route path='/homestd' component={StudentHomeScreen} />

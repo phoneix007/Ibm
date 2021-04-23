@@ -12,7 +12,9 @@ const getUsers = (req, res) => {
               if(err) res.status(400).send('Querry Error');
               else {
                 if(result.length > 0) {
-                    result[0].token = generateToken(result[0].TE_id ? result[0].TE_id : result[0].ST_id) 
+                    let _id = result[0].TE_id ? result[0].TE_id : result[0].ST_id
+                    let _email = result[0].TE_id ? result[0].TE_Emailid : result[0].ST_Username
+                    result[0].token = generateToken(_id, _email, role) 
                     res.json(result[0])
                 }
                 else {

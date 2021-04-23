@@ -5,9 +5,13 @@ export const contentDetails = (ct_id) => async(dispatch, getState) => {
     try {
         dispatch({ type: CONTENT_REQUEST })
         
+        const { userLogin: { userInfo, userRole } } = getState()
+
         const config = {
-            header: { 
-                'Content-Type': 'application/json'
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`,
+                role: `${userRole}`
             }
         }
 
