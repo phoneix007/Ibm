@@ -37,6 +37,7 @@ const getStudentSessionPlans = (req, res) => {
             else {
               if(result.length > 0) {
                   res.json(result)
+                  console.log(res.json(result));
               }
               else {
                   res.status(401)
@@ -48,6 +49,33 @@ const getStudentSessionPlans = (req, res) => {
         }
     })
 }
+const getQNA = (req, res) => {
+  const { q1,q2 } = req.body
+  let q1="What"
+  let q2="Mobile"
+  
+  pool.getConnection((err, conn) => {
+      if(err) res.status(400).send('Connection Error');
+      else {
+        let sql = `SELECT SessionPlan.SP_id,SessionPlan.SP_Name,SessionPlan.SP_Duration,SessionPlan.SP_Sequence,SessionPlan.CO_id FROM SessionPlan,CompletedSession WHERE SessionPlan.SP_id=CompletedSession.SP_id AND SessionPlan.CO_id=?`
+        
+        conn.query(sql,[co_id], (err, result) => {
+            if(err) res.status(400).send('Querry Error');
+            else {
+              if(result.length > 0) {
+                  res.json(result)
+              }
+              else {
+                  res.status(401)
+                  res.json({ message: "No Data Found" })
+              }
+            }
+            conn.release();
+          })
+        }
+    })
+}
+
 
 const getStudentSections = (req, res) => {
   const { sp_id } = req.body
