@@ -47,7 +47,7 @@ export const SessionScreen = ({ history, match }) => {
     return (
         <>
             <h1 style={{"text-align": "center"}}>Sessions</h1>
-            { loading || statusLoading ? (<Loader>Loading....</Loader>) : error || err ? <Message variant='danger'>{error || err}</Message> :
+            { loading || statusLoading ? (<Loader>Loading....</Loader>) : 
             <div>
                 <DropDown Role={userRole}/>
                 <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
@@ -60,7 +60,8 @@ export const SessionScreen = ({ history, match }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {SessionInfo.map((key, index) => 
+                    {error || err ? <Message variant='danger'>{error || err}</Message> :
+                        SessionInfo.map((key, index) => 
                             <tr key={key.SP_id}>
                                 <td>{key.SP_id}</td>
                                 <td>{key.SP_Name}</td>

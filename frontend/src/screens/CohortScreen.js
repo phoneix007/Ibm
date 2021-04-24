@@ -32,7 +32,7 @@ export const CohortScreen = ({ history }) => {
     return (
         <>
             <h1 style={{"text-align": "center"}}>Cohorts</h1>
-            { loading ? (<Loader>Loading....</Loader>) : error ? <Message variant='danger'>{error}</Message> :
+            { loading ? (<Loader>Loading....</Loader>) : 
             <div>
                 <DropDown Role={userRole}/>
                 <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
@@ -44,7 +44,8 @@ export const CohortScreen = ({ history }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {TeacherInfo.map((key, index) => 
+                    {error ? <td colspan="3"><Message variant='danger'>{error}</Message></td>:
+                        TeacherInfo.map((key, index) => 
                         <tr key={key.CH_id}>
                             <td>{key.CH_id}</td>
                             <Link to={`/courses`} onClick={() => dispatch(setTemp('courseUrl', key.CU_id))}><td>{key.CH_Name}</td></Link>

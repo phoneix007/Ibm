@@ -1,22 +1,24 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import Dropdown from 'react-bootstrap/Dropdown'
+import DropDown from '../components/DropDown'
 import { setTemp } from '../actions/urlActions'
 export const StudentHomeScreen = ({ history }) => {
     const dispatch = useDispatch()
 
     const userLogin = useSelector(state => state.userLogin)
-    const {loading,error, userInfo, role } = userLogin
+    const {loading,error, userInfo, userRole } = userLogin
 
     useEffect(()=> {
         if(!userInfo ) {
             history.push('/login')
         }
+        else {
+            dispatch(setTemp('coursesUrl', userInfo.ST_id))
+        }
         
-    }, [dispatch, history, role, userInfo])
+    }, [dispatch, history, userInfo])
 
 
     return (
@@ -24,22 +26,9 @@ export const StudentHomeScreen = ({ history }) => {
             <h1 style={{"text-align": "center"}}>Dashboard</h1>
             { loading ? (<Loader>Loading....</Loader>) : error ? <Message variant='danger'>{error}</Message> :
             <div>
-                <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        Menu
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu show>
-                        <Dropdown.Item ><Link to={`/homestd`}>Dashboard</Link></Dropdown.Item>
-                        <Dropdown.Item ><Link to={`/courses`} onClick={() => dispatch(setTemp('coursesUrl',userInfo.ST_id))}
-            >View curriculum </Link></Dropdown.Item>
-                        <Dropdown.Item ><Link to={`/qna`}>Q&A Section</Link></Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">View your performance</Dropdown.Item>
-                        <Dropdown.Item href="#/action-1">Attending session</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
-            
+                <DropDown Role={userRole}/>
                 <h1 style={{"text-align": "center"}}>Welcome to smart kaksha..</h1>
-                <h1 style={{"text-align": "center"}}>{role} Student 's Dashboard</h1>
+                <h1 style={{"text-align": "center"}}>{userRole}'s Dashboard</h1>
             </div> }
         </>
     ) 

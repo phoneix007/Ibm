@@ -49,7 +49,7 @@ export const StudentSessionSectionScreen = ({ history }) => {
     return (
         <>
             <h1 style={{"text-align": "center"}}>Sections</h1>
-            { loading || statusLoading ? (<Loader>Loading....</Loader>) : error || statusError ? <Message variant='danger'>{error}</Message> :
+            { loading || statusLoading ? (<Loader>Loading....</Loader>) : 
                 <div>
                     <DropDown Role={userRole}/>    
                     <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
@@ -63,7 +63,8 @@ export const StudentSessionSectionScreen = ({ history }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {SessionSectionInfo.map((key, index) => 
+                            {error || statusError ? <Message variant='danger'>{error}</Message> :
+                            SessionSectionInfo.map((key, index) => 
                             <tr key={key.SS_id}>
                                 <td>{key.SS_id}</td>
                                 <Link to={`/content`} onClick={() => setter(key.CT_id, key.SS_id, userInfo.ST_id)}><td>{key.SS_Content}</td></Link>
