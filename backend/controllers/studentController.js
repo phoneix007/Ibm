@@ -53,35 +53,23 @@ const getStudentqna = (req, res) => {
   pool.getConnection((err, conn) => {
       if(err) res.status(400).send('Connection Error');
       else {
+        let commonWords = ['i','a','about','an','and','are','as','at','be','by','com','de','en','for','from','in','is','it','la','of','on','or','that','the','this','to','was','will','with','und','the','www'];
+        let text = question;
+        text = text.toLowerCase();
+        text = text.replace(/[^\w\d ]/g, '');
 
-        var $commonWords = ['i','a','about','an','and','are','as','at','be','by','com','de','en','for','from','in','is','it','la','of','on','or','that','the','this','to','was','will','with','und','the','www'];
-var $text = question;
-
-// Convert to lowercase
-$text = $text.toLowerCase();
-
-// replace unnesessary chars. leave only chars, numbers and space
-$text = $text.replace(/[^\w\d ]/g, '');
-
-var result = $text.split(' ');
-
-// remove $commonWords
-result = result.filter(function (word) {
-    return $commonWords.indexOf(word) === -1;
-});
-
-// Unique words
-
-console.log(result);
-
-        let sql = `select CF_Answer from ( select ConceptFAQ.*, rank() over (order by IF(CF_Keyword1=?, 1, 0) + IF(CF_Keyword2=?, 1, 0) + IF(CF_Keyword3=?, 1, 0) desc) rnk from ConceptFAQ) as temp  where rnk = 1`
+        let result = text.split(' ');
+        result = result.filter(function (word) {
+            return commonWords.indexOf(word) === -1;
+        });
+        result.sort()
+        let sql = `select CF_Answer from ( select ConceptFAQ.*, rank() over (order by IF(CF_Keyword1=?, 1, 0) + IF(CF_Keyword2=?, 1, 0) + IF(CF_Keyword3=?, 1, 0) desc) rnk from ConceptFAQ WHERE IF(CF_Keyword1=?, 1, 0) + IF(CF_Keyword2=?, 1, 0) + IF(CF_Keyword3=?, 1, 0) > 0) as temp where rnk = 1 `
         
-        conn.query(sql,[result[0],result[1],result[2]], (err, result) => {
+        conn.query(sql, [result[0], result[1], result[2], result[0], result[1], result[2]], (err, result) => {
             if(err) res.status(400).send('Querry Error');
             else {
               if(result.length > 0) {
                   res.json(result)
-                  //console.log("backend:"+result)
               }
               else {
                   res.status(401)

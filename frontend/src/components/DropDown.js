@@ -9,7 +9,7 @@ export const DropDown = ({ Role }) => {
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                     Menu
                 </Dropdown.Toggle>
-                <Dropdown.Menu show>
+                <Dropdown.Menu>
                     <Dropdown.Item ><Link to={`/home`}>Dashboard</Link></Dropdown.Item>
                     <Dropdown.Item ><Link to={`/unlock`}>Unlock and Teach Session</Link></Dropdown.Item>
                     <Dropdown.Item ><Link to={`/cohort`}>Mangage Curriculum</Link></Dropdown.Item>
@@ -21,7 +21,7 @@ export const DropDown = ({ Role }) => {
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                     Menu
                 </Dropdown.Toggle>
-                <Dropdown.Menu show>
+                <Dropdown.Menu>
                     <Dropdown.Item ><Link to={`/homestd`}>Dashboard</Link></Dropdown.Item>
                     <Dropdown.Item ><Link to={`/courses`}>View curriculum</Link></Dropdown.Item>
                     <Dropdown.Item ><Link to={`/qna`}>Q&A Section</Link></Dropdown.Item>
