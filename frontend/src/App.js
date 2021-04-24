@@ -13,7 +13,7 @@ import StudentHomeScreen from './screens/StudentHomeScreen'
 import UnlockScreen from './screens/UnlockScreen'
 import UnlockSessionScreen from './screens/UnlockSessionScreen'
 import StudentSessionSectionScreen from './screens/StudentSessionSectionsScreen'
-
+import QnaScreen from './screens/QnaScreen'
 const  App = () => {
   return (
     <Router>
@@ -32,6 +32,7 @@ const  App = () => {
           <Route path='/homestd' component={StudentHomeScreen} />
           <Route path='/unlock' component={UnlockScreen} />
           <Route path='/unlocksessions' component={UnlockSessionScreen} />
+          <Route path='/qna' component={QnaScreen} />
         </Container>
       </main>
       

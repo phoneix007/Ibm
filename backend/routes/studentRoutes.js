@@ -1,5 +1,5 @@
 const express = require('express')
-const {  getStudentCourses, getStudentSessionPlans, getStudentSections, getContent, markContentStatus, getContentStatus } = require('../controllers/studentController.js')
+const { getStudentqna,getStudentCourses, getStudentSessionPlans, getStudentSections, getContent, markContentStatus, getContentStatus } = require('../controllers/studentController.js')
 const { protect } = require('../middleware/authMiddleware')
 
 const router = express.Router()
@@ -11,5 +11,5 @@ router.route('/sections').post(protect, getStudentSections)
 router.route('/content').post(protect, getContent)
 router.route('/markcontentstatus').post(protect, markContentStatus)
 router.route('/getcontentstatus').post(protect, getContentStatus)
-
+router.route('/qna').post(protect, getStudentqna)
 module.exports = router

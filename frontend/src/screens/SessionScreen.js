@@ -79,3 +79,11 @@ export const SessionScreen = ({ history, match }) => {
 }
 
 export default SessionScreen
+
+/*<InputGroup>
+    <InputGroup.Prepend>
+      <InputGroup.Text>Enter your query...</InputGroup.Text>
+    </InputGroup.Prepend>
+    <FormControl as="textarea" aria-label="With textarea" />
+    <Button variant="success">Submit</Button>{' '}
+  </InputGroup> */

@@ -26,25 +26,7 @@ export const coursesDetails = (st_id) => async(dispatch, getState) => {
         })
     }
 }
-export const QNA = () => async(dispatch, getState) => {
-    try {
-        dispatch({ type: TEACHER_COURSES_REQUEST })
-        
-        const config = {
-            header: { 
-                'Content-Type': 'application/json'
-            }
-        }
-        const { data } = await axios.post('/api/student/qna', {}, config)
-        dispatch({ type: TEACHER_COURSES_SUCCESS, payload: data })
 
-    } catch (error) {
-        dispatch({ 
-            type: TEACHER_COURSES_FAIL, 
-            payload: error.response && error.response.data.message ? error.response.data.message : error.message 
-        })
-    }
-}
 export const studentsessionDetails = (co_id) => async(dispatch, getState) => {
     try {
         dispatch({ type: TEACHER_SESSIONS_REQUEST })
@@ -68,7 +50,25 @@ export const studentsessionDetails = (co_id) => async(dispatch, getState) => {
         })
     }
 }
+export const studentqna = (question,userInfo, userRole) => async() => {
+    try {
 
+        const config = {
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`,
+                role: `${userRole}`
+            }
+        }
+
+        const {data}  = await axios.post('/api/student/qna', {question}, config)
+        return(data[0]);
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+ 
 export const contentStatusDetails = (st_id) => async(dispatch, getState) => {
     try {
         dispatch({ type: STUDENT_CONTENT_STATUS_REQUEST })

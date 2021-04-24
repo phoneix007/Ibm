@@ -37,7 +37,6 @@ const getStudentSessionPlans = (req, res) => {
             else {
               if(result.length > 0) {
                   res.json(result)
-                  console.log(res.json(result));
               }
               else {
                   res.status(401)
@@ -49,7 +48,52 @@ const getStudentSessionPlans = (req, res) => {
         }
     })
 }
+const getStudentqna = (req, res) => {
+  const { question } = req.body
+  pool.getConnection((err, conn) => {
+      if(err) res.status(400).send('Connection Error');
+      else {
 
+        var $commonWords = ['i','a','about','an','and','are','as','at','be','by','com','de','en','for','from','in','is','it','la','of','on','or','that','the','this','to','was','will','with','und','the','www'];
+var $text = question;
+
+// Convert to lowercase
+$text = $text.toLowerCase();
+
+// replace unnesessary chars. leave only chars, numbers and space
+$text = $text.replace(/[^\w\d ]/g, '');
+
+var result = $text.split(' ');
+
+// remove $commonWords
+result = result.filter(function (word) {
+    return $commonWords.indexOf(word) === -1;
+});
+
+// Unique words
+
+console.log(result);
+
+        let sql = `select CF_Answer from ( select ConceptFAQ.*, rank() over (order by IF(CF_Keyword1=?, 1, 0) + IF(CF_Keyword2=?, 1, 0) + IF(CF_Keyword3=?, 1, 0) desc) rnk from ConceptFAQ) as temp  where rnk = 1`
+        
+        conn.query(sql,[result[0],result[1],result[2]], (err, result) => {
+            if(err) res.status(400).send('Querry Error');
+            else {
+              if(result.length > 0) {
+                  res.json(result)
+                  //console.log("backend:"+result)
+              }
+              else {
+                  res.status(401)
+                  res.json({ message: "No Data Found" })
+              }
+            }
+            conn.release();
+          })
+        }
+    })
+}
+ 
 const getStudentSections = (req, res) => {
   const { sp_id } = req.body
   pool.getConnection((err, conn) => {
@@ -132,4 +176,4 @@ const getContentStatus = (req, res) => {
     })
 }
 
-module.exports = {  getStudentCourses, getStudentSessionPlans, getStudentSections, getContent, markContentStatus, getContentStatus }
+module.exports = {  getStudentqna,getStudentCourses, getStudentSessionPlans, getStudentSections, getContent, markContentStatus, getContentStatus }
