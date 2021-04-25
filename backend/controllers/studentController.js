@@ -71,12 +71,15 @@ result = result.filter(function (word) {
 });
 
 // Unique words
-
+result.sort(function(a, b) {
+  return a.localeCompare(b);
+});
 console.log(result);
-
-        let sql = `select CF_Answer from ( select ConceptFAQ.*, rank() over (order by IF(CF_Keyword1=?, 1, 0) + IF(CF_Keyword2=?, 1, 0) + IF(CF_Keyword3=?, 1, 0) desc) rnk from ConceptFAQ) as temp  where rnk = 1`
+        let sql=`select CF_Answer from ( select ConceptFAQ.*, rank() over (order by IF(CF_Keyword1="computing", 1, 0) + IF(CF_Keyword2="mobile", 1, 0) + IF(CF_Keyword3="what", 1, 0) desc) rnk from ConceptFAQ WHERE IF(CF_Keyword1="computing", 1, 0) + IF(CF_Keyword2="mobile", 1, 0) + IF(CF_Keyword3="what", 1, 0) > 0) as temp where rnk = 1`
+        //let sql = `select CF_Answer from ( select ConceptFAQ.*, rank() over (order by IF(CF_Keyword1=?, 1, 0) + IF(CF_Keyword2=?, 1, 0) + IF(CF_Keyword3=?, 1, 0) desc) rnk from ConceptFAQ) as temp  where rnk = 1`
+        let sql = `select CF_Answer from ( select ConceptFAQ.*, rank() over (order by IF(CF_Keyword1=?, 1, 0) + IF(CF_Keyword1=?, 1, 0) + IF(CF_Keyword1=?, 1, 0)+ IF(CF_Keyword2=?, 1, 0) + IF(CF_Keyword2=?, 1, 0) + IF(CF_Keyword2=?, 1, 0)+ IF(CF_Keyword3=?, 1, 0) + IF(CF_Keyword3=?, 1, 0) + IF(CF_Keyword3=?, 1, 0) desc) rnk from ConceptFAQ) as temp  where rnk = 1`
         
-        conn.query(sql,[result[0],result[1],result[2]], (err, result) => {
+        conn.query(sql,[result[0],result[1],result[2],result[0],result[1],result[2],result[0],result[1],result[2]], (err, result) => {
             if(err) res.status(400).send('Querry Error');
             else {
               if(result.length > 0) {
