@@ -63,7 +63,7 @@ export const StudentSessionSectionScreen = ({ history }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {error || statusError ? <Message variant='danger'>{error}</Message> :
+                            {error || statusError ? <td colSpan="5"><Message variant='danger'>{error || statusError}</Message></td> :
                             SessionSectionInfo.map((key, index) => 
                             <tr key={key.SS_id}>
                                 <td>{key.SS_id}</td>
