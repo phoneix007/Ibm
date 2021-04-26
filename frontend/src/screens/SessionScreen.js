@@ -60,7 +60,7 @@ export const SessionScreen = ({ history, match }) => {
                         </tr>
                     </thead>
                     <tbody>
-                    {error || err ? <Message variant='danger'>{error || err}</Message> :
+                    {error || err ? <td colspan="4"><Message variant='danger'>{error || err}</Message></td> :
                         SessionInfo.map((key, index) => 
                             <tr key={key.SP_id}>
                                 <td>{key.SP_id}</td>
