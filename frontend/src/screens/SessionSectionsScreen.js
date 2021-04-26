@@ -34,7 +34,7 @@ export const SessionSectionScreen = ({ history }) => {
     return (
         <>
             <h1 style={{"text-align": "center"}}>Sections</h1>
-            { loading ? (<Loader>Loading....</Loader>) : error ? <Message variant='danger'>{error}</Message> :
+            { loading ? (<Loader>Loading....</Loader>) : 
                 <div>
                     <DropDown Role={userRole}/>    
                     <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
@@ -47,7 +47,8 @@ export const SessionSectionScreen = ({ history }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {SessionSectionInfo.map((key, index) => 
+                        {error ? <td colspan="3"><Message variant='danger'>{error}</Message></td>:
+                            SessionSectionInfo.map((key, index) => 
                             <tr key={key.SS_id}>
                                 <td>{key.SS_id}</td>
                                 <Link to={`/content`} onClick={() => dispatch(setTemp('contentUrl', key.CT_id))}><td>{key.SS_Content}</td></Link>

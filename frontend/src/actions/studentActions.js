@@ -1,6 +1,6 @@
 import { TEACHER_COURSES_REQUEST, TEACHER_COURSES_SUCCESS, TEACHER_COURSES_FAIL, TEACHER_SESSIONS_REQUEST, TEACHER_SESSIONS_SUCCESS, TEACHER_SESSIONS_FAIL } from '../constants/teacherConstants'
 import axios from 'axios'
-import { STUDENT_CONTENT_STATUS_FAIL, STUDENT_CONTENT_STATUS_REQUEST, STUDENT_CONTENT_STATUS_SUCCESS } from '../constants/studentConstants'
+import { FAQ_FAIL, FAQ_REQUEST, FAQ_SUCCESS, STUDENT_CONTENT_STATUS_FAIL, STUDENT_CONTENT_STATUS_REQUEST, STUDENT_CONTENT_STATUS_SUCCESS } from '../constants/studentConstants'
 
 
 export const coursesDetails = (st_id) => async(dispatch, getState) => {
@@ -50,8 +50,10 @@ export const studentsessionDetails = (co_id) => async(dispatch, getState) => {
         })
     }
 }
-export const studentqna = (question,userInfo, userRole) => async() => {
+export const studentqna = (question) => async(dispatch, getState) => {
     try {
+        dispatch({ type: FAQ_REQUEST })
+        const { userLogin: { userInfo, userRole } } = getState()
 
         const config = {
             headers: { 
@@ -61,11 +63,14 @@ export const studentqna = (question,userInfo, userRole) => async() => {
             }
         }
 
-        const {data}  = await axios.post('/api/student/qna', {question}, config)
-        return(data[0]);
+        const { data }  = await axios.post('/api/student/qna', {question}, config)
+        dispatch({ type: FAQ_SUCCESS, payload: data })
 
     } catch (error) {
-        console.log(error);
+        dispatch({ 
+            type: FAQ_FAIL, 
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message 
+        })
     }
 }
  

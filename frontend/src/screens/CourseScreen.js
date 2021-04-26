@@ -38,7 +38,7 @@ export const CourseScreen = ({ history, match }) => {
     return (
         <>
             <h1 style={{"text-align": "center"}}>Courses</h1>
-            { loading ? (<Loader>Loading....</Loader>) : error ? <Message variant='danger'>{error}</Message> :
+            { loading ? (<Loader>Loading....</Loader>) :
             <div>
                 <DropDown Role={userRole}/>
                 <Table striped bordered hover borderless style={{margin: "5% 20%", width: "60%", justifyContent: "center"}}>
@@ -50,7 +50,8 @@ export const CourseScreen = ({ history, match }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {CoursesInfo.map((key, index) => 
+                    {error ? <td colspan="3"><Message variant='danger'>{error}</Message></td>:
+                        CoursesInfo.map((key, index) => 
                         <tr key={key.CO_id}>
                             <td>{key.CO_id}</td>
                             <Link to={`/sessions`} onClick={() => dispatch(setTemp('sessionUrl', key.CO_id))}><td>{key.CO_Name}</td></Link>
