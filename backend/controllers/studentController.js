@@ -63,8 +63,8 @@ const getStudentqna = (req, res) => {
             return commonWords.indexOf(word) === -1;
         });
         result.sort()
-        let sql = `select CF_Answer from ( select ConceptFAQ.*, rank() over (order by IF(CF_Keyword1=?, 1, 0) + IF(CF_Keyword1=?, 1, 0) + IF(CF_Keyword1=?, 1, 0) + IF(CF_Keyword2=?, 1, 0) + IF(CF_Keyword2=?, 1, 0) + IF(CF_Keyword2=?, 1, 0) + IF(CF_Keyword3=?, 1, 0) + IF(CF_Keyword3=?, 1, 0) + IF(CF_Keyword3=?, 1, 0) desc) rnk from ConceptFAQ WHERE IF(CF_Keyword1=?, 1, 0) + IF(CF_Keyword1=?, 1, 0) + IF(CF_Keyword1=?, 1, 0) + IF(CF_Keyword2=?, 1, 0) + IF(CF_Keyword2=?, 1, 0) + IF(CF_Keyword2=?, 1, 0) + IF(CF_Keyword3=?, 1, 0) + IF(CF_Keyword3=?, 1, 0) + IF(CF_Keyword3=?, 1, 0) > 0) as temp where rnk = 1 `
-        conn.query(sql, [result[0], result[1], result[2], result[0], result[1], result[2],result[0], result[1], result[2],result[0], result[1], result[2], result[0], result[1], result[2],result[0], result[1], result[2]], (err, result) => {
+        let sql = `select CF_Answer from ( select ConceptFAQ.*, rank() over (order by IF(CF_Keyword1=?, 1, 0) + IF(CF_Keyword1=?, 1, 0) + IF(CF_Keyword1=?, 1, 0) + IF(CF_Keyword2=?, 1, 0) + IF(CF_Keyword2=?, 1, 0) + IF(CF_Keyword2=?, 1, 0) + IF(CF_Keyword3=?, 1, 0) + IF(CF_Keyword3=?, 1, 0) + IF(CF_Keyword3=?, 1, 0) + IF(CF_Keyword4=?, 1, 0) + IF(CF_Keyword4=?, 1, 0) + IF(CF_Keyword4=?, 1, 0) desc) rnk from ConceptFAQ WHERE IF(CF_Keyword1=?, 1, 0) + IF(CF_Keyword1=?, 1, 0) + IF(CF_Keyword1=?, 1, 0) + IF(CF_Keyword2=?, 1, 0) + IF(CF_Keyword2=?, 1, 0) + IF(CF_Keyword2=?, 1, 0) + IF(CF_Keyword3=?, 1, 0) + IF(CF_Keyword3=?, 1, 0) + IF(CF_Keyword3=?, 1, 0) + IF(CF_Keyword4=?, 1, 0) + IF(CF_Keyword4=?, 1, 0) + IF(CF_Keyword4=?, 1, 0) > 0) as temp where rnk = 1 `
+        conn.query(sql, [result[0], result[1], result[2],result[3], result[0], result[1], result[2],result[3],result[0], result[1], result[2],result[3],result[0], result[1], result[2],result[3], result[0], result[1], result[2],result[3],result[0], result[1], result[2],result[3]], (err, result) => {
             if(err) res.status(400).send('Querry Error');
             else {
               if(result.length > 0) {
