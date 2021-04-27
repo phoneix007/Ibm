@@ -122,7 +122,7 @@ export const sessionStatusDetails = (co_id) => async(dispatch, getState) => {
     }
 }
 
-export const unlockSession = (userInfo, userRole, ch_id, sp_id, co_id, tc_id, to_id) => async() => {
+export const unlockSession = (userInfo, userRole, ch_id, sp_id, co_id, tc_id, tp_id) => async() => {
     try {
         const config = {
             headers: { 
@@ -131,7 +131,7 @@ export const unlockSession = (userInfo, userRole, ch_id, sp_id, co_id, tc_id, to
                 role: `${userRole}`
             }
         }
-        await axios.post('/api/teachers/unlocksession', {ch_id, sp_id, co_id, tc_id, to_id}, config)
+        await axios.post('/api/teachers/unlocksession', {ch_id, sp_id, co_id, tc_id, tp_id}, config)
     }
     catch (error) {
         console.log("err: " +  error)

@@ -31,9 +31,9 @@ export const UnlockSessionScreen = ({ history, match }) => {
         return false
     }
 
-    const updateSessionStatus = (ch_id, sp_id, co_id, tc_id, to_id) => {
+    const updateSessionStatus = (ch_id, sp_id, co_id, tc_id, tp_id) => {
         window.location.reload()
-        dispatch(unlockSession(userInfo, userRole, ch_id, sp_id, co_id, tc_id, to_id))
+        dispatch(unlockSession(userInfo, userRole, ch_id, sp_id, co_id, tc_id, tp_id))
     }
 
     useEffect(()=> {
@@ -68,7 +68,7 @@ export const UnlockSessionScreen = ({ history, match }) => {
                             <td>{key.SP_Name}</td>
                             {checkStatus(key.SP_id) ? <Link to={`/sections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link> : 
                             <td>
-                                <Button size="sm" onClick={() => updateSessionStatus(urlParameter.cohortID, key.SP_id, key.CO_id, userInfo.TC_id, 1)}>Unlock</Button>
+                                <Button size="sm" onClick={() => updateSessionStatus(urlParameter.cohortID, key.SP_id, key.CO_id, userInfo.TC_id, userInfo.TP_id)}>Unlock</Button>
                             </td>}
                         </tr>
                         )}
