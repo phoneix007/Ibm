@@ -1,6 +1,4 @@
-import { FAQ_FAIL, FAQ_REQUEST, FAQ_RESET, FAQ_SUCCESS, STUDENT_CONTENT_STATUS_FAIL, STUDENT_CONTENT_STATUS_REQUEST, STUDENT_CONTENT_STATUS_RESET, STUDENT_CONTENT_STATUS_SUCCESS } from '../constants/studentConstants'
-
-
+import { FAQ_FAIL, FAQ_REQUEST, FAQ_RESET, FAQ_SUCCESS } from '../constants/studentConstants'
 
 
 export const studentFAQReducer = (state={ FAQresult: [] }, action) => {

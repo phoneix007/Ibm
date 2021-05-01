@@ -8,6 +8,7 @@ import { cohortDeatils } from '../actions/teacherActions'
 import { setTemp } from '../actions/urlActions'
 import DropDown from '../components/DropDown'
 import { courseDetails } from '../actions/teacherActions'
+import { TEACHER_COURSES_RESET } from '../constants/teacherConstants'
 
 export const UnlockScreen = ({ history }) => {
     const dispatch = useDispatch()
@@ -22,8 +23,9 @@ export const UnlockScreen = ({ history }) => {
     const { loading: courseLoading = false, CoursesInfo, error: courseError } = courseDetail
 
     useEffect(()=> {
-        if(userInfo) {
+        if(userInfo && userRole === 'Teacher') {
             dispatch(cohortDeatils(userInfo.TC_id))
+            dispatch({ type: TEACHER_COURSES_RESET })
         }
         else {
             history.push('/login')

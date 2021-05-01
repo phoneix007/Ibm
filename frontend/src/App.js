@@ -6,13 +6,13 @@ import CohortScreen from './screens/CohortScreen'
 import LoginScreen from './screens/LoginScreen'
 import CourseScreen from './screens/CourseScreen'
 import SessionScreen from './screens/SessionScreen'
-import SessionSectionScreen from './screens/SessionSectionsScreen'
+import StudentSessionSectionScreen from './screens/StudentSessionSectionScreen'
+import TeacherSessionSectionScreen from './screens/TeacherSessionSectionScreen'
 import ContentScreen from './screens/ContentScreen'
 import HomeScreen from './screens/HomeScreen'
 import StudentHomeScreen from './screens/StudentHomeScreen'
 import UnlockScreen from './screens/UnlockScreen'
 import UnlockSessionScreen from './screens/UnlockSessionScreen'
-import StudentSessionSectionScreen from './screens/StudentSessionSectionsScreen'
 import QnaScreen from './screens/QnaScreen'
 const  App = () => {
   return (
@@ -25,8 +25,8 @@ const  App = () => {
           <Route exact path='/cohort' component={CohortScreen} />
           <Route path='/courses' component={CourseScreen} />
           <Route path='/sessions' component={SessionScreen} />
-          <Route path='/sections' component={SessionSectionScreen} />
           <Route path='/studentsections' component={StudentSessionSectionScreen} />
+          <Route path='/teachersections' component={TeacherSessionSectionScreen} />
           <Route path='/content' component={ContentScreen} />
           <Route path='/home' component={HomeScreen} />
           <Route path='/homestd' component={StudentHomeScreen} />

@@ -24,9 +24,15 @@ export const SessionScreen = ({ history, match }) => {
     const SessionStatus = useSelector(state => state.teacherSessionStatus)
     const { loading: statusLoading, SessionStatusInfo, error: err } = SessionStatus
 
-    const checkStatus = (key) => {
+    const checkLockStatus = (key) => {
         let s = SessionStatusInfo.length
         for(let i = 0; i < s; i++) if(SessionStatusInfo[i].SP_id === key) return true
+        return false
+    }
+
+    const checkCompleteStatus = (key) => {
+        let s = SessionStatusInfo.length
+        for(let i = 0; i < s; i++) if(SessionStatusInfo[i].SP_id === key && SessionStatusInfo[i].STATUS === 1) return true
         return false
     }
 
@@ -67,8 +73,8 @@ export const SessionScreen = ({ history, match }) => {
                                 <td>{key.SP_Name}</td>
                                 <td>{key.SP_Duration === null ?  `${key.SP_Duration}` : key.SP_Duration}</td>
                                 {
-                                    userRole === "Teacher" ? checkStatus(key.SP_id) ? <Link to={`/studentsections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link> : <td>Locked</td> :
-                                    <Link to={`/sections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link>
+                                    userRole === "Teacher" ? checkLockStatus(key.SP_id) ? <Link to={`/teachersections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}>{checkCompleteStatus(key.SP_id) ? <td>Completed</td> : <td>Pending</td>}</Link> : <td>Locked</td> :
+                                    <Link to={`/studentsections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link>
                                 }
                             </tr>)
                         }
@@ -80,11 +86,3 @@ export const SessionScreen = ({ history, match }) => {
 }
 
 export default SessionScreen
-
-/*<InputGroup>
-    <InputGroup.Prepend>
-      <InputGroup.Text>Enter your query...</InputGroup.Text>
-    </InputGroup.Prepend>
-    <FormControl as="textarea" aria-label="With textarea" />
-    <Button variant="success">Submit</Button>{' '}
-  </InputGroup> */

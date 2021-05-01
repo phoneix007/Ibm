@@ -73,22 +73,7 @@ export const sessionDetails = (co_id) => async(dispatch, getState) => {
         })
     }
 }
-export const markContentStatus = (userInfo, userRole, tc_id, ss_id, sp_id, tp_id) => async(dispatch, getState) => {
-    try {
-        const config = {
-            headers: { 
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${userInfo.token}`,
-                role: `${userRole}`
-            }
-        }
 
-        await axios.post('/api/teachers/markcontentstatus', {tc_id, ss_id, sp_id,tp_id}, config)
-
-    } catch (error) {
-        console.log("error: " +  error)
-    }
-}
 export const sessionSectionDetails = (sp_id) => async(dispatch, getState) => {
     try {
         dispatch({ type: TEACHER_SESSION_SECTIONS_REQUEST })
@@ -173,5 +158,22 @@ export const contentStatusDetails = (tc_id) => async(dispatch, getState) => {
             type: TEACHER_CONTENT_STATUS_FAIL, 
             payload: error.response && error.response.data.message ? error.response.data.message : error.message 
         })
+    }
+}
+
+export const markContentStatus = (userInfo, userRole, tc_id, ss_id, sp_id, tp_id) => async() => {
+    try {
+        const config = {
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`,
+                role: `${userRole}`
+            }
+        }
+
+        await axios.post('/api/teachers/markcontentstatus', {tc_id, ss_id, sp_id, tp_id}, config)
+
+    } catch (error) {
+        console.log("error: " +  error)
     }
 }

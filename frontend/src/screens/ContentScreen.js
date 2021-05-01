@@ -32,7 +32,6 @@ export const ContentScreen = ({ history }) => {
 
     useEffect(()=> {
         if(userInfo) {
-            console.log(urlParameter.contentUrl);
             dispatch(contentDetails(urlParameter.contentUrl))
         }
         else {

@@ -8,10 +8,10 @@ export const HomeScreen = ({ history }) => {
     const dispatch = useDispatch()
 
     const userLogin = useSelector(state => state.userLogin)
-    const {loading,error, userInfo, userRole } = userLogin
+    const { loading, error, userInfo, userRole } = userLogin
 
     useEffect(()=> {
-        if(!userInfo) {
+        if(!userInfo && userRole !== 'Teacher') {
             history.push('/login')
         }
         

@@ -8,7 +8,7 @@ import { sessionSectionDetails } from '../actions/teacherActions'
 import DropDown from '../components/DropDown'
 import { setTemp } from '../actions/urlActions'
 
-export const SessionSectionScreen = ({ history }) => {
+export const StudentSessionSectionScreen = ({ history }) => {
     const dispatch = useDispatch()
 
     const userLogin = useSelector(state => state.userLogin)
@@ -22,13 +22,13 @@ export const SessionSectionScreen = ({ history }) => {
 
 
     useEffect(()=> {
-        if(userInfo) {
+        if(userInfo && userRole === 'Student') {
             dispatch(sessionSectionDetails(urlParameter.sectionUrl))
         }
         else {
             history.push('/login')
         }
-    }, [dispatch, history, urlParameter, userInfo])
+    }, [dispatch, history, urlParameter, userInfo, userRole])
 
 
     return (
@@ -62,4 +62,4 @@ export const SessionSectionScreen = ({ history }) => {
     ) 
 }
 
-export default SessionSectionScreen
+export default StudentSessionSectionScreen

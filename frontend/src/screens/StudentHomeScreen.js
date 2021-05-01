@@ -11,14 +11,14 @@ export const StudentHomeScreen = ({ history }) => {
     const {loading,error, userInfo, userRole } = userLogin
 
     useEffect(()=> {
-        if(!userInfo ) {
+        if(!userInfo && userRole !== 'Student') {
             history.push('/login')
         }
         else {
             dispatch(setTemp('coursesUrl', userInfo.ST_id))
         }
         
-    }, [dispatch, history, userInfo])
+    }, [dispatch, history, userInfo, userRole])
 
 
     return (
