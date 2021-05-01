@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { sessionSectionDetails } from '../actions/teacherActions'
-import { markContentStatus, contentStatusDetails } from '../actions/studentActions'
+import { markContentStatus,sessionSectionDetails } from '../actions/teacherActions'
+import {  contentStatusDetails } from '../actions/teacherActions'
 import DropDown from '../components/DropDown'
 import { setTemp } from '../actions/urlActions'
 
@@ -18,8 +18,8 @@ export const StudentSessionSectionScreen = ({ history }) => {
     const sessionSectionDetail = useSelector(state => state.teacherSessionSection)
     const { loading, SessionSectionInfo, error } = sessionSectionDetail
 
-    const studentContentStatus = useSelector(state => state.studentContentStatus)
-    const { loading: statusLoading, contentStatusInfo, error: statusError } = studentContentStatus
+    const teacherContentStatus = useSelector(state => state.teacherContentStatus)
+    const { loading: statusLoading, contentStatusInfo, error: statusError } = teacherContentStatus
 
     const urlVar = useSelector(state => state.urlVar)
     const { urlParameter } = urlVar
@@ -30,15 +30,18 @@ export const StudentSessionSectionScreen = ({ history }) => {
         return false
     }
 
-    const setter = (CT_id, SS_id, ST_id) => {
+    const setter = (CT_id,TC_id, SS_id, SP_id,TP_id) => {
+
         dispatch(setTemp('contentUrl', CT_id))
-        dispatch(markContentStatus(userInfo, userRole, ST_id, SS_id, CT_id))
+        dispatch(markContentStatus(userInfo, userRole, TC_id, SS_id, SP_id,TP_id))
+        console.log("TC="+TC_id);
     }
 
     useEffect(()=> {
         if(userInfo) {
             dispatch(sessionSectionDetails(urlParameter.sectionUrl))
-            dispatch(contentStatusDetails(userInfo.ST_id))
+            dispatch(contentStatusDetails(userInfo.TC_id))
+            
         }
         else {
             history.push('/login')
@@ -67,7 +70,7 @@ export const StudentSessionSectionScreen = ({ history }) => {
                             SessionSectionInfo.map((key, index) => 
                             <tr key={key.SS_id}>
                                 <td>{key.SS_id}</td>
-                                <Link to={`/content`} onClick={() => setter(key.CT_id, key.SS_id, userInfo.ST_id)}><td>{key.SS_Content}</td></Link>
+                                <Link to={`/content`} onClick={() => {setter(key.CT_id,userInfo.TC_id, key.SS_id, key.SP_id,userInfo.TP_id)}}><td>{key.SS_Content}</td></Link>
                                 <td>{key.SS_ContentType}</td>
                                 <td>{key.SS_Duration === null ?  `${key.SS_Duration}` : key.SS_Duration}</td>
                                 {checkStatus(key.SS_id) ? <td>Completed</td> : <td>Pending</td> }

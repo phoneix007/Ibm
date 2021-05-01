@@ -1,4 +1,4 @@
-import { TEACHER_COHORT_REQUEST, TEACHER_COHORT_SUCCESS, TEACHER_COHORT_FAIL, TEACHER_COURSES_REQUEST, TEACHER_COURSES_SUCCESS, TEACHER_COURSES_FAIL, TEACHER_SESSIONS_REQUEST, TEACHER_SESSIONS_SUCCESS, TEACHER_SESSIONS_FAIL, TEACHER_SESSION_SECTIONS_REQUEST, TEACHER_SESSION_SECTIONS_SUCCESS, TEACHER_SESSION_SECTIONS_FAIL, TEACHER_SESSION_STATUS_REQUEST, TEACHER_SESSION_STATUS_SUCCESS, TEACHER_SESSION_STATUS_FAIL } from '../constants/teacherConstants'
+import { TEACHER_CONTENT_STATUS_REQUEST,TEACHER_CONTENT_STATUS_SUCCESS,TEACHER_CONTENT_STATUS_FAIL,TEACHER_COHORT_REQUEST, TEACHER_COHORT_SUCCESS, TEACHER_COHORT_FAIL, TEACHER_COURSES_REQUEST, TEACHER_COURSES_SUCCESS, TEACHER_COURSES_FAIL, TEACHER_SESSIONS_REQUEST, TEACHER_SESSIONS_SUCCESS, TEACHER_SESSIONS_FAIL, TEACHER_SESSION_SECTIONS_REQUEST, TEACHER_SESSION_SECTIONS_SUCCESS, TEACHER_SESSION_SECTIONS_FAIL, TEACHER_SESSION_STATUS_REQUEST, TEACHER_SESSION_STATUS_SUCCESS, TEACHER_SESSION_STATUS_FAIL } from '../constants/teacherConstants'
 import axios from 'axios'
 
 export const cohortDeatils = (tc_id) => async(dispatch, getState) => {
@@ -73,7 +73,22 @@ export const sessionDetails = (co_id) => async(dispatch, getState) => {
         })
     }
 }
+export const markContentStatus = (userInfo, userRole, tc_id, ss_id, sp_id, tp_id) => async(dispatch, getState) => {
+    try {
+        const config = {
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`,
+                role: `${userRole}`
+            }
+        }
 
+        await axios.post('/api/teachers/markcontentstatus', {tc_id, ss_id, sp_id,tp_id}, config)
+
+    } catch (error) {
+        console.log("error: " +  error)
+    }
+}
 export const sessionSectionDetails = (sp_id) => async(dispatch, getState) => {
     try {
         dispatch({ type: TEACHER_SESSION_SECTIONS_REQUEST })
@@ -135,5 +150,28 @@ export const unlockSession = (userInfo, userRole, ch_id, sp_id, co_id, tc_id, tp
     }
     catch (error) {
         console.log("err: " +  error)
+    }
+}
+export const contentStatusDetails = (tc_id) => async(dispatch, getState) => {
+    try {
+        dispatch({ type: TEACHER_CONTENT_STATUS_REQUEST })
+        const { userLogin: { userInfo, userRole } } = getState()
+
+        const config = {
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`,
+                role: `${userRole}`
+            }
+        }
+
+        const { data } = await axios.post('/api/teachers/getcontentstatus', {tc_id}, config)
+        dispatch({ type: TEACHER_CONTENT_STATUS_SUCCESS, payload: data })
+
+    } catch (error) {
+        dispatch({ 
+            type: TEACHER_CONTENT_STATUS_FAIL, 
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message 
+        })
     }
 }

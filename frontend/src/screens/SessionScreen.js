@@ -67,8 +67,8 @@ export const SessionScreen = ({ history, match }) => {
                                 <td>{key.SP_Name}</td>
                                 <td>{key.SP_Duration === null ?  `${key.SP_Duration}` : key.SP_Duration}</td>
                                 {
-                                    userRole === "Teacher" ? checkStatus(key.SP_id) ? <Link to={`/sections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link> : <td>Locked</td> :
-                                    <Link to={`/studentsections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link>
+                                    userRole === "Teacher" ? checkStatus(key.SP_id) ? <Link to={`/studentsections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link> : <td>Locked</td> :
+                                    <Link to={`/sections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link>
                                 }
                             </tr>)
                         }
