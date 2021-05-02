@@ -179,8 +179,8 @@ const markContentStatus = (req, res) => {
   pool.getConnection((err, conn) => {
       if(err) res.status(400).send('Connection Error')
       else {
-        let sql = `INSERT INTO CompletedContent (TC_id, SS_id, SP_id, CompleteDate) VALUES(?, ?, ?, NOW())`        
-        conn.query(sql, [tc_id, ss_id, sp_id], (err, results) => {
+        let sql = `INSERT INTO CompletedContent (TC_id, SS_id, SP_id, CompleteDate) SELECT ?, ?, ?, NOW() WHERE NOT EXISTS (SELECT * FROM CompletedContent WHERE TC_id=? AND SS_id=? AND SP_id=?)`        
+        conn.query(sql, [tc_id, ss_id, sp_id,tc_id, ss_id, sp_id], (err, results) => {
             if(err) res.status(400).send(err)
             else {
               let sql = 'UPDATE CompletedSession CS INNER JOIN (SELECT tb1.SP_id, tb1.TC_id FROM (select *,count(SP_id) as count from CompletedContent group by SP_id) as tb1,(select *,count(SP_id) as count from SessionSection group by SP_id ) as tb2 WHERE tb1.count=tb2.count AND tb1.SP_id = tb2.SP_id) v ON CS.TC_id=v.TC_id AND CS.SP_id=v.SP_id AND CS.TC_id=? AND CS.TP_id=? SET CS.STATUS=1, CS.CS_CompletionDate=NOW()';
