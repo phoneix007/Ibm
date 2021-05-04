@@ -9,7 +9,7 @@ import { sessionDetails, sessionStatusDetails } from '../actions/teacherActions'
 import { studentsessionDetails } from '../actions/studentActions'
 import { setTemp } from '../actions/urlActions'
 
-export const SessionScreen = ({ history, match }) => {
+export const SessionScreen = ({ history }) => {
     const dispatch = useDispatch()
 
     const userLogin = useSelector(state => state.userLogin)
@@ -43,6 +43,7 @@ export const SessionScreen = ({ history, match }) => {
         }
         else if(userInfo && userRole === "Student") {
             dispatch(studentsessionDetails(urlParameter.sessionUrl))
+            dispatch(sessionStatusDetails(urlParameter.sessionUrl))
         }
         else {
             history.push('/login')
@@ -74,7 +75,7 @@ export const SessionScreen = ({ history, match }) => {
                                 <td>{key.SP_Duration === null ?  `${key.SP_Duration}` : key.SP_Duration}</td>
                                 {
                                     userRole === "Teacher" ? checkLockStatus(key.SP_id) ? <Link to={`/teachersections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}>{checkCompleteStatus(key.SP_id) ? <td>Completed</td> : <td>Pending</td>}</Link> : <td>Locked</td> :
-                                    <Link to={`/studentsections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link>
+                                    <Link to={`/studentsections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}>{checkCompleteStatus(key.SP_id) ? <td>Completed</td> : <td>Pending</td>}</Link>
                                 }
                             </tr>)
                         }

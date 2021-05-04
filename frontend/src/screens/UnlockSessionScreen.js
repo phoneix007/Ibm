@@ -66,7 +66,7 @@ export const UnlockSessionScreen = ({ history, match }) => {
                         <tr key={key.SP_id}>
                             <td>{key.SP_id}</td>
                             <td>{key.SP_Name}</td>
-                            {checkStatus(key.SP_id) ? <Link to={`/sections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link> : 
+                            {checkStatus(key.SP_id) ? <Link to={`/teachersections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link> : 
                             <td>
                                 <Button size="sm" onClick={() => updateSessionStatus(urlParameter.cohortID, key.SP_id, key.CO_id, userInfo.TC_id, userInfo.TP_id)}>Unlock</Button>
                             </td>}
