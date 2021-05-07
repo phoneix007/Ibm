@@ -49,7 +49,7 @@ export const SessionScreen = ({ history }) => {
             history.push('/login')
         }
     }, [dispatch, history, urlParameter, userInfo, userRole])
-
+      
 
     return (
         <>
@@ -69,7 +69,7 @@ export const SessionScreen = ({ history }) => {
                     <tbody>
                     {error || err ? <td colspan="4"><Message variant='danger'>{error || err}</Message></td> :
                         SessionInfo.map((key, index) => 
-                            <tr key={key.SP_id}>
+                        <tr  key={key.SP_id}>
                                 <td>{key.SP_id}</td>
                                 <td>{key.SP_Name}</td>
                                 <td>{key.SP_Duration === null ?  `${key.SP_Duration}` : key.SP_Duration}</td>

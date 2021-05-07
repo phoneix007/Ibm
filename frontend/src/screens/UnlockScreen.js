@@ -32,6 +32,13 @@ export const UnlockScreen = ({ history }) => {
         }
     }, [dispatch, history, userRole, userInfo])
 
+    const click=(key_id,destination,destination_var)=>{
+        
+        dispatch(setTemp(destination_var, key_id))
+        history.push(destination)
+    }
+
+
     const cohortItems = error ? null : TeacherInfo.map(key => (
         <option value={[key.CU_id, key.CH_id]}>{key.CH_Name}</option>
     ));
@@ -69,8 +76,8 @@ export const UnlockScreen = ({ history }) => {
                                 </thead>
                                 <tbody>
                                     {CoursesInfo.map((key, index) => 
-                                    <tr key={key.CO_id}>
-                                        <Link to={`/unlocksessions`} onClick={() => dispatch(setTemp('sessionUrl', key.CO_id))}><td>{key.CO_Name}</td></Link>
+                                    <tr style={{"cursor":"pointer"}} onClick={() =>click(key.CO_id,"/unlocksessions",'sessionUrl') }  key={key.CO_id}>
+                                        <td>{key.CO_Name}</td>
                                         <td>{key.CO_Insertdate === null ?  `${key.CO_Insertdate}` : key.CO_Insertdate}</td>
                                     </tr>
                                     )}

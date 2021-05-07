@@ -34,6 +34,11 @@ export const CourseScreen = ({ history, match }) => {
         }
     }, [dispatch, history, userRole, userInfo, urlParameter])
 
+    const click=(key_id,destination,destination_var)=>{
+        
+        dispatch(setTemp(destination_var, key_id))
+        history.push(destination)
+    }
 
     return (
         <>
@@ -52,9 +57,9 @@ export const CourseScreen = ({ history, match }) => {
                     <tbody>
                     {error ? <td colspan="3"><Message variant='danger'>{error}</Message></td>:
                         CoursesInfo.map((key, index) => 
-                        <tr key={key.CO_id}>
+                        <tr style={{"cursor":"pointer"}} onClick={() =>click(key.CO_id,"/sessions",'sessionUrl') }  key={key.CO_id}>
                             <td>{key.CO_id}</td>
-                            <Link to={`/sessions`} onClick={() => dispatch(setTemp('sessionUrl', key.CO_id))}><td>{key.CO_Name}</td></Link>
+                            <td>{key.CO_Name}</td>
                             <td>{key.CO_Insertdate === null ?  `${key.CO_Insertdate}` : key.CO_Insertdate}</td>
                         </tr> )}
                     </tbody>

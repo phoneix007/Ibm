@@ -27,7 +27,12 @@ export const CohortScreen = ({ history }) => {
             history.push('/login')
         }
     }, [dispatch, history, userRole, userInfo])
-
+    
+    const click=(key_id,destination,destination_var)=>{
+        
+        dispatch(setTemp(destination_var, key_id))
+        history.push(destination)
+    }
       
     return (
         <>
@@ -46,11 +51,12 @@ export const CohortScreen = ({ history }) => {
                     <tbody>
                     {error ? <td colspan="3"><Message variant='danger'>{error}</Message></td>:
                         TeacherInfo.map((key, index) => 
-                        <tr key={key.CH_id}>
+                      
+                      <tr style={{"cursor":"pointer"}} onClick={() =>click(key.CU_id,"/courses",'courseUrl') } key={key.CH_id}>
                             <td>{key.CH_id}</td>
-                            <Link to={`/courses`} onClick={() => dispatch(setTemp('courseUrl', key.CU_id))}><td>{key.CH_Name}</td></Link>
+                            <td>{key.CH_Name}</td>
                             <td>{key.CH_InsertDate.split('T')[0]}</td>
-                        </tr>
+                        </tr> 
                         )}
                     </tbody>
                 </Table>

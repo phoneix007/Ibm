@@ -46,7 +46,7 @@ export const UnlockSessionScreen = ({ history, match }) => {
         }
     }, [dispatch, history, urlParameter, userInfo, userRole])
 
-
+ 
     return (
         <>
             <h1 style={{"text-align": "center"}}>Unlock Sessions</h1>
@@ -63,7 +63,7 @@ export const UnlockSessionScreen = ({ history, match }) => {
                     </thead>
                     <tbody>
                         {SessionInfo.map((key, index) => 
-                        <tr key={key.SP_id}>
+                        <tr  key={key.SP_id}>
                             <td>{key.SP_id}</td>
                             <td>{key.SP_Name}</td>
                             {checkStatus(key.SP_id) ? <Link to={`/teachersections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link> : 

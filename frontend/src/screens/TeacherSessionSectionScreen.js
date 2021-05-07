@@ -43,6 +43,12 @@ export const TeacherSessionSectionScreen = ({ history }) => {
             history.push('/login')
         }
     }, [dispatch, history, urlParameter, userInfo, userRole])
+    
+    const click=(CT_id,SS_id,SP_id,TP_id,TC_id,destination)=>{
+        
+        setter(CT_id,SS_id,SP_id,TP_id,TC_id)
+        history.push(destination)
+    }
 
 
     return (
@@ -64,9 +70,9 @@ export const TeacherSessionSectionScreen = ({ history }) => {
                         <tbody>
                             {error || statusError ? <td colSpan="5"><Message variant='danger'>{error || statusError}</Message></td> :
                             SessionSectionInfo.map((key, index) => 
-                            <tr key={key.SS_id}>
+                            <tr style={{"cursor":"pointer"}} onClick={() =>click(key.CT_id, key.SS_id, key.SP_id, userInfo.TP_id, userInfo.TC_id,"/content") }  key={key.SS_id}>
                                 <td>{key.SS_id}</td>
-                                <Link to={`/content`} onClick={() => {setter(key.CT_id, key.SS_id, key.SP_id, userInfo.TP_id, userInfo.TC_id)}}><td>{key.SS_Content}</td></Link>
+                                <td>{key.SS_Content}</td>
                                 <td>{key.SS_ContentType}</td>
                                 <td>{key.SS_Duration === null ?  `${key.SS_Duration}` : key.SS_Duration}</td>
                                 {checkStatus(key.SS_id) ? <td>Completed</td> : <td>Pending</td> }

@@ -30,6 +30,12 @@ export const StudentSessionSectionScreen = ({ history }) => {
         }
     }, [dispatch, history, urlParameter, userInfo, userRole])
 
+    const click=(key_id,destination,destination_var)=>{
+        
+        dispatch(setTemp(destination_var, key_id))
+        history.push(destination)
+    }
+ 
 
     return (
         <>
@@ -49,9 +55,9 @@ export const StudentSessionSectionScreen = ({ history }) => {
                         <tbody>
                         {error ? <td colspan="3"><Message variant='danger'>{error}</Message></td>:
                             SessionSectionInfo.map((key, index) => 
-                            <tr key={key.SS_id}>
+                            <tr style={{"cursor":"pointer"}} onClick={() =>click(key.CT_id,"/content",'contentUrl') }  key={key.SS_id}>
                                 <td>{key.SS_id}</td>
-                                <Link to={`/content`} onClick={() => dispatch(setTemp('contentUrl', key.CT_id))}><td>{key.SS_Content}</td></Link>
+                                <td>{key.SS_Content}</td>
                                 <td>{key.SS_ContentType}</td>
                                 <td>{key.SS_Duration === null ?  `${key.SS_Duration}` : key.SS_Duration}</td>
                             </tr> )}
