@@ -7,6 +7,7 @@ import Message from '../components/Message'
 import DropDown from '../components/DropDown'
 import { setTemp } from '../actions/urlActions'
 import { markContentStatus, sessionSectionDetails, contentStatusDetails } from '../actions/teacherActions'
+import { logout } from '../actions/userActions'
 
 export const TeacherSessionSectionScreen = ({ history }) => {
     const dispatch = useDispatch()
@@ -47,6 +48,7 @@ export const TeacherSessionSectionScreen = ({ history }) => {
 
     return (
         <>
+        {error && error === 401 ? dispatch(logout()) : null}
             <h1 style={{"text-align": "center"}}>Sections</h1>
             { loading || statusLoading ? (<Loader>Loading....</Loader>) : 
                 <div>

@@ -9,6 +9,7 @@ import { setTemp } from '../actions/urlActions'
 import DropDown from '../components/DropDown'
 import { courseDetails } from '../actions/teacherActions'
 import { TEACHER_COURSES_RESET } from '../constants/teacherConstants'
+import { logout } from '../actions/userActions'
 
 export const UnlockScreen = ({ history }) => {
     const dispatch = useDispatch()
@@ -43,6 +44,7 @@ export const UnlockScreen = ({ history }) => {
 
     return (
         <>
+        {error && error === 401 ? dispatch(logout()) : null}
             <h1 style={{"text-align": "center"}}>Unlock Session</h1>
             { loading ? (<Loader>Loading....</Loader>) : error ? <Message variant='danger'>{error}</Message> :
                 <div>

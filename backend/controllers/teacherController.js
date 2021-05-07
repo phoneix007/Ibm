@@ -14,7 +14,7 @@ const getTeacherCohort = (req, res) => {
                     res.json(result)
                 }
                 else {
-                    res.status(401)
+                    res.status(404)
                     res.json({ message: "No Data Found" })
                 }
               }
@@ -38,7 +38,7 @@ const getTeacherCourses = (req, res) => {
                   res.json(result)
               }
               else {
-                  res.status(401)
+                  res.status(404)
                   res.json({ message: "No Data Found" })
               }
             }
@@ -63,7 +63,7 @@ const getTeacherSessionPlans = (req, res) => {
                   res.json(result)
               }
               else {
-                  res.status(401)
+                  res.status(404)
                   res.json({ message: "No Data Found" })
               }
             }
@@ -87,7 +87,7 @@ const getTeacherSections = (req, res) => {
                   res.json(result)
               }
               else {
-                  res.status(401)
+                  res.status(404)
                   res.json({ message: "No Data Found" })
               }
             }
@@ -111,7 +111,7 @@ const getContent = (req, res) => {
                   res.json(result)
               }
               else {
-                  res.status(401)
+                  res.status(404)
                   res.json({ message: "No Data Found" })
               }
             }

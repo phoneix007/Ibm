@@ -22,7 +22,7 @@ export const coursesDetails = (st_id) => async(dispatch, getState) => {
     } catch (error) {
         dispatch({ 
             type: TEACHER_COURSES_FAIL, 
-            payload: error.response && error.response.data.message ? error.response.data.message : error.message 
+            payload: error.response && error.response.status === 401 ? error.response.status : error.response.data.message ? error.response.data.message : error.message
         })
     }
 }
@@ -46,7 +46,7 @@ export const studentsessionDetails = (co_id) => async(dispatch, getState) => {
     } catch (error) {
         dispatch({ 
             type: TEACHER_SESSIONS_FAIL, 
-            payload: error.response && error.response.data.message ? error.response.data.message : error.message 
+            payload: error.response && error.response.status === 401 ? error.response.status : error.response.data.message ? error.response.data.message : error.message
         })
     }
 }
@@ -69,7 +69,7 @@ export const studentqna = (question) => async(dispatch, getState) => {
     } catch (error) {
         dispatch({ 
             type: FAQ_FAIL, 
-            payload: error.response && error.response.data.message ? error.response.data.message : error.message 
+            payload: error.response && error.response.status === 401 ? error.response.status : error.response.data.message ? error.response.data.message : error.message
         })
     }
 }

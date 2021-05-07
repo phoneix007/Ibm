@@ -8,7 +8,7 @@ import DropDown from '../components/DropDown'
 import { sessionDetails, sessionStatusDetails, unlockSession } from '../actions/teacherActions'
 import { setTemp } from '../actions/urlActions'
 import { Button } from 'react-bootstrap'
-
+import { logout } from '../actions/userActions'
 
 export const UnlockSessionScreen = ({ history, match }) => {
     const dispatch = useDispatch()
@@ -49,6 +49,7 @@ export const UnlockSessionScreen = ({ history, match }) => {
 
     return (
         <>
+        {error && error === 401 ? dispatch(logout()) : null}
             <h1 style={{"text-align": "center"}}>Unlock Sessions</h1>
             { loading || statusLoading ? (<Loader>Loading....</Loader>) : error || err ? <Message variant='danger'>{error || err}</Message> :
             <div>

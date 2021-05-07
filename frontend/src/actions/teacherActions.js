@@ -20,7 +20,7 @@ export const cohortDeatils = (tc_id) => async(dispatch, getState) => {
     } catch (error) {
         dispatch({ 
             type: TEACHER_COHORT_FAIL, 
-            payload: error.response && error.response.data.message ? error.response.data.message : error.message 
+            payload: error.response && error.response.status === 401 ? error.response.status : error.response.data.message ? error.response.data.message : error.message 
             // payload: error.response.status 
         })
     }
@@ -45,7 +45,7 @@ export const courseDetails = (cu_id) => async(dispatch, getState) => {
     } catch (error) {
         dispatch({ 
             type: TEACHER_COURSES_FAIL, 
-            payload: error.response && error.response.data.message ? error.response.data.message : error.message 
+            payload: error.response && error.response.status === 401 ? error.response.status : error.response.data.message ? error.response.data.message : error.message 
         })
     }
 }
@@ -69,7 +69,7 @@ export const sessionDetails = (co_id) => async(dispatch, getState) => {
     } catch (error) {
         dispatch({ 
             type: TEACHER_SESSIONS_FAIL, 
-            payload: error.response && error.response.data.message ? error.response.data.message : error.message 
+            payload: error.response && error.response.status === 401 ? error.response.status : error.response.data.message ? error.response.data.message : error.message 
         })
     }
 }
@@ -93,7 +93,7 @@ export const sessionSectionDetails = (sp_id) => async(dispatch, getState) => {
     } catch (error) {
         dispatch({ 
             type: TEACHER_SESSION_SECTIONS_FAIL, 
-            payload: error.response && error.response.data.message ? error.response.data.message : error.message 
+            payload: error.response && error.response.status === 401 ? error.response.status : error.response.data.message ? error.response.data.message : error.message 
         })
     }
 }
@@ -117,7 +117,7 @@ export const sessionStatusDetails = (co_id) => async(dispatch, getState) => {
     } catch (error) {
         dispatch({ 
             type: TEACHER_SESSION_STATUS_FAIL, 
-            payload: error.response && error.response.data.message ? error.response.data.message : error.message 
+            payload: error.response && error.response.status === 401 ? error.response.status : error.response.data.message ? error.response.data.message : error.message 
         })
     }
 }
@@ -156,7 +156,7 @@ export const contentStatusDetails = (tc_id) => async(dispatch, getState) => {
     } catch (error) {
         dispatch({ 
             type: TEACHER_CONTENT_STATUS_FAIL, 
-            payload: error.response && error.response.data.message ? error.response.data.message : error.message 
+            payload: error.response && error.response.status === 401 ? error.response.status : error.response.data.message ? error.response.data.message : error.message 
         })
     }
 }
