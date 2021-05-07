@@ -8,7 +8,7 @@ import DropDown from '../components/DropDown'
 import { courseDetails } from '../actions/teacherActions'
 import { coursesDetails } from '../actions/studentActions'
 import { setTemp } from '../actions/urlActions'
-
+import { logout } from '../actions/userActions'
 
 export const CourseScreen = ({ history, match }) => {
     const dispatch = useDispatch() 
@@ -42,6 +42,7 @@ export const CourseScreen = ({ history, match }) => {
 
     return (
         <>
+        {error && error === 401 ? dispatch(logout()) : null}
             <h1 style={{"text-align": "center"}}>Courses</h1>
             { loading ? (<Loader>Loading....</Loader>) :
             <div>

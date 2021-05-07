@@ -7,7 +7,7 @@ import Message from '../components/Message'
 import DropDown from '../components/DropDown'
 import { cohortDeatils } from '../actions/teacherActions'
 import { setTemp } from '../actions/urlActions'
-
+import { logout } from '../actions/userActions'
 
 
 export const CohortScreen = ({ history }) => {
@@ -36,6 +36,7 @@ export const CohortScreen = ({ history }) => {
       
     return (
         <>
+        {error && error === 401 ? dispatch(logout()) : null}
             <h1 style={{"text-align": "center"}}>Cohorts</h1>
             { loading ? (<Loader>Loading....</Loader>) : 
             <div>

@@ -8,6 +8,7 @@ import DropDown from '../components/DropDown'
 import { sessionDetails, sessionStatusDetails } from '../actions/teacherActions'
 import { studentsessionDetails } from '../actions/studentActions'
 import { setTemp } from '../actions/urlActions'
+import { logout } from '../actions/userActions'
 
 export const SessionScreen = ({ history }) => {
     const dispatch = useDispatch()
@@ -53,6 +54,7 @@ export const SessionScreen = ({ history }) => {
 
     return (
         <>
+        {error && error === 401 ? dispatch(logout()) : null}
             <h1 style={{"text-align": "center"}}>Sessions</h1>
             { loading || statusLoading ? (<Loader>Loading....</Loader>) : 
             <div>

@@ -7,6 +7,7 @@ import Message from '../components/Message'
 import { sessionSectionDetails } from '../actions/teacherActions'
 import DropDown from '../components/DropDown'
 import { setTemp } from '../actions/urlActions'
+import { logout } from '../actions/userActions'
 
 export const StudentSessionSectionScreen = ({ history }) => {
     const dispatch = useDispatch()
@@ -39,6 +40,7 @@ export const StudentSessionSectionScreen = ({ history }) => {
 
     return (
         <>
+        {error && error === 401 ? dispatch(logout()) : null}
             <h1 style={{"text-align": "center"}}>Sections</h1>
             { loading ? (<Loader>Loading....</Loader>) : 
                 <div>

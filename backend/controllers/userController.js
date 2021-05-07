@@ -28,5 +28,9 @@ const getUsers = (req, res) => {
       })
 }
 
+const authUsers = (req, res) => {
+  res.status(200)
+  res.json({ message: "Authorized" })
+}
 
-module.exports = { getUsers }
+module.exports = { getUsers, authUsers }

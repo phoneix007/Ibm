@@ -15,7 +15,7 @@ const getStudentCourses = (req, res) => {
                   res.json(result)
               }
               else {
-                  res.status(401)
+                  res.status(404)
                   res.json({ message: "No Data Found" })
               }
             }
@@ -39,7 +39,7 @@ const getStudentSessionPlans = (req, res) => {
                   res.json(result)
               }
               else {
-                  res.status(401)
+                  res.status(404)
                   res.json({ message: "No Data Found" })
               }
             }
@@ -70,7 +70,7 @@ const getStudentqna = (req, res) => {
                   res.json(result)
               }
               else {
-                  res.status(401)
+                  res.status(404)
                   res.json({ message: "No Results Found" })
               }
             }
@@ -94,7 +94,7 @@ const getStudentSections = (req, res) => {
                   res.json(result)
               }
               else {
-                  res.status(401)
+                  res.status(404)
                   res.json({ message: "No Data Found" })
               }
             }
@@ -118,7 +118,7 @@ const getContent = (req, res) => {
                   res.json(result)
               }
               else {
-                  res.status(401)
+                  res.status(404)
                   res.json({ message: "No Data Found" })
               }
             }

@@ -20,7 +20,7 @@ export const ContentScreen = ({ history }) => {
     const dispatch = useDispatch()
 
     const userLogin = useSelector(state => state.userLogin)
-    const { userInfo } = userLogin
+    const { userInfo, userRole } = userLogin
 
 
     const contentDetail = useSelector(state => state.content)
@@ -31,13 +31,13 @@ export const ContentScreen = ({ history }) => {
 
 
     useEffect(()=> {
-        if(userInfo) {
+        if(userInfo && (userRole === "Teacher" || userRole === "Student")) {
             dispatch(contentDetails(urlParameter.contentUrl))
         }
         else {
             history.push('/login') 
         }
-    }, [dispatch, history, urlParameter, userInfo])
+    }, [dispatch, history, urlParameter, userInfo, userRole])
 
 
 

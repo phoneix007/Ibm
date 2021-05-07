@@ -1,7 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { userLoginReducer } from './reducers/userReducers'
+import { userLoginReducer, userAuthReducer } from './reducers/userReducers'
 import { teacherContentStatusReducer, teacherCohortReducer, teacherCoursesReducer, teacherSessionsReducer, teacherSessionSectionReducer, teacherTempReducer, teacherSessionStatusReducer } from './reducers/teacherReducers'
 import { contentReducer } from './reducers/contentReducer'
 import { studentFAQReducer } from './reducers/studentReducer'
@@ -9,6 +9,7 @@ import { studentFAQReducer } from './reducers/studentReducer'
 
 const reducer = combineReducers({
     userLogin: userLoginReducer,
+    userAuth: userAuthReducer,
     teacherCohort: teacherCohortReducer,
     teacherCourses: teacherCoursesReducer,
     teacherSessions: teacherSessionsReducer,
