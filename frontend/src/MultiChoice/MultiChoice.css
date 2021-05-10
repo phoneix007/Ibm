@@ -1,0 +1,26 @@
+
+
+.blueBtn {
+  background-color: rgb(234, 32, 80);
+}
+
+.blueBtn:hover {
+  background-color: #1C6B8F;
+}
+
+.cardTitle {
+  width: 50%;
+}
+
+.collection:not(last-of-type) {
+  margin-top: 30px;
+  width: 50%;
+}
+
+.collection a.collection-item {
+  color: #09181E;
+}
+
+div.card-content {
+  margin-top: -30px;
+}

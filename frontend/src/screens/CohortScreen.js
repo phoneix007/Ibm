@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import Table from 'react-bootstrap/Table'
-import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
@@ -27,7 +26,7 @@ export const CohortScreen = ({ history }) => {
             history.push('/login')
         }
     }, [dispatch, history, userRole, userInfo])
-    
+     
     const click=(key_id,destination,destination_var)=>{
         
         dispatch(setTemp(destination_var, key_id))
