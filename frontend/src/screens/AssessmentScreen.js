@@ -31,6 +31,7 @@ export var AssessmentScreen = ({ history, match }) => {
 		const ch_id = urlParameter.cohortID;
 
 		updateAssessmentDetails(ch_id, tc_id, tp_id, am_id, co_id, CA_status);
+		window.location.reload()
 		
 	};
 

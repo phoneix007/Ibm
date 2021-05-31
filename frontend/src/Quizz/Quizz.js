@@ -90,7 +90,7 @@ import Results from '../Results/Results';
           <h2>Quiz</h2>
 
         
-      ( {this.state.quiz?(<Progress current_step={this.state.progress} question_length={this.state.quiz_data.length} />):null}
+      ( {this.state.quiz_data?(<Progress current_step={this.state.progress} question_length={this.state.quiz_data.length} />):null}
         {this.state.progress < this.state.quiz_data.length ? (
           <div>
 
