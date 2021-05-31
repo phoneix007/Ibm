@@ -25,7 +25,7 @@ import Results from '../Results/Results';
     this.submitAnswer = this.submitAnswer.bind(this);
     this.retryQuiz = this.retryQuiz.bind(this);
     
-    axios.get("http://localhost:3002/content").then((res) => {
+    axios.get("/api/student/quizzcontent").then((res) => {
       //console.log(res);
   }).then((myJson)=>{JSON.stringify(myJson);})
     
@@ -36,7 +36,7 @@ import Results from '../Results/Results';
   
   async componentDidMount()
   {
-    await fetch("http://localhost:3002/content").then((response) => {
+    await fetch("/api/student/quizzcontent").then((response) => {
       return response.json();
     })
     .then((myJson) => {

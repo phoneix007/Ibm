@@ -7,6 +7,7 @@ const {
 	getContent,
 	getStudentqna,
 	getQuizzQuestions,
+	getQuizzContent
 	
 } = require("../controllers/studentController.js");
 
@@ -22,6 +23,7 @@ router.route("/content").post(protect, getContent);
 router.route("/qna").post(protect, getStudentqna);
 router.route("/studentassessment").post(getStudentAssessments);
 router.route("/startquizz").post(protect, getQuizzQuestions);
+router.route("/quizzcontent").get(getQuizzContent);
 
 
 

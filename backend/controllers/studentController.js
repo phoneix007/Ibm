@@ -236,36 +236,30 @@ const getQuizzQuestions = (req, res) => {
 		}
 	});
 };
-var connection = mysql.createConnection({
-	host: process.env.MYSQL_ADDON_HOST,
-	user: process.env.MYSQL_ADDON_USER,
-	password: process.env.MYSQL_ADDON_PASSWORD,
-	database: process.env.MYSQL_ADDON_DB
-});
 
-connection.connect(function(error){
-	if(!!error){
-		console.log(error);
-	} else {
-		console.log('DB Connected(2)');
-	}
-});
-
-app.use(cors());
-app.get('/content',function(req,resp){
-	// pool.getConnection((err, conn) => {
-	// 	if (err) res.status(400).send("Connection Error");
-		
-	connection.query("SELECT * FROM assessmentquestion",function(error,rows,fields){
-		if(error){
- 		console.log(error);
- 	} else {
- 		resp.send(rows);
- 	}
+const getQuizzContent = (req, res) => {
+	
+	pool.getConnection((err, conn) => {
+		if (err) res.status(400).send("Connection Error");
+		else {
+			let sql = `SELECT * FROM assessmentquestion`;
+			
+			conn.query(sql, (err, result) => {
+				if (err) res.status(400).send("Querry Error");
+				else {
+					if (result.length > 0) {
+						res.json(result);
+					} else {
+						res.status(401);
+						res.json({ message: "No Data Found" });
+					}
+				}
+				conn.release();
+			});
+		}
 	});
-}) 
-const port=process.env.PORT || 3002;
- app.listen(port, ()=> console.log(`listening on ${port}..`));
+};
+
 module.exports = {
 	getStudentCourses,
 	getStudentSessionPlans,
@@ -274,4 +268,5 @@ module.exports = {
 	getStudentqna,
 	getStudentAssessments,
 	getQuizzQuestions,
+	getQuizzContent
 };
