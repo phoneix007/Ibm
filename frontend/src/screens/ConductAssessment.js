@@ -98,7 +98,7 @@ export const ConductAssessmentScreen = ({ history }) => {
 								<tbody>
 									{CoursesInfo.map((key, index) => (
 										<tr key={key.CO_id}>
-											<Link to={`/assessment/${key.CO_id}`}>
+											<Link to={`/assessment`} onClick={() => dispatch(setTemp('CO_id', key.CO_id))}>
 												<td>{key.CO_Name}</td>
 											</Link>
 											<td>

@@ -44,7 +44,7 @@ const App = () => {
 					<Route path="/unlock" component={UnlockScreen} />
 					<Route path="/unlocksessions" component={UnlockSessionScreen} />
 					<Route path="/qna" component={QnaScreen} />
-					<Route path="/assessment/:id" component={AssessmentScreen} />
+					<Route path="/assessment" component={AssessmentScreen} />
 					<Route path="/assess" component={ConductAssessmentScreen} />
 					<Route path="/studentassess" component={StudentAssessmentScreen} />
 					{/* <Route

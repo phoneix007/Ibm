@@ -5,7 +5,7 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { updateAssessmentDetails } from "../actions/teacherActions";
 import { assessmentDetails } from "../actions/teacherActions";
-//import {fun} from '../screens/CohortScreen.js'
+
 
 export var AssessmentScreen = ({ history, match }) => {
 	
@@ -17,34 +17,18 @@ export var AssessmentScreen = ({ history, match }) => {
 	var assessmentDetail = useSelector((state) => state.assessment);
 	var { loading, AssessmentsInfo, error } = assessmentDetail;
 
-	var teacherCohort = useSelector((state) => state.teacherCohort);
-	var { TeacherInfo } = teacherCohort;
-
-	var teacherCourses = useSelector((state) => state.teacherCourses);
-	var { CoursesInfo } = teacherCourses;
-
 	const urlVar = useSelector(state => state.urlVar)
     const { urlParameter } = urlVar
 
+	if(userLogin.userInfo) {
+		var tc_id = userInfo.TC_id
+		var tp_id = userInfo.TP_id
+	}
 	
-	var tc_id = useSelector((state) => state.userLogin.userInfo.TC_id);
-	var tp_id = useSelector((state) => state.userLogin.userInfo.TP_id);
-	//var ch_id = useSelector(state=>state.teacherCourses.TeacherInfo[0].CH_id)
 
-	//var co_id = useSelector(state=>state.AssessmentsInfo.CO_id)
-	var text="unlock"
 	var Getcuid = (tc_id, tp_id, am_id, co_id, CA_status) => {
-		text = "lock";
-		var cu_id;
-		var ch_id;
-		for (var i = 0; i < Object.keys(CoursesInfo).length; i++) {
-			//console.log(CoursesInfo[i].CO_id)
-			if (CoursesInfo[i].CO_id === co_id) {
-				cu_id = CoursesInfo[i].CU_id;
-			}
-			break;
-		}
-		ch_id=urlParameter.cohortID;
+
+		const ch_id = urlParameter.cohortID;
 
 		updateAssessmentDetails(ch_id, tc_id, tp_id, am_id, co_id, CA_status);
 		
@@ -52,11 +36,11 @@ export var AssessmentScreen = ({ history, match }) => {
 
 	useEffect(() => {
 		if (userInfo && userRole === "Teacher") {
-			dispatch(assessmentDetails(match.params.id));
+			dispatch(assessmentDetails(urlParameter.CO_id));
 		} else {
 			history.push("/login");
 		}
-	}, [dispatch, history, match, userRole, userInfo]);
+	}, [dispatch, history, userRole, userInfo, urlParameter]);
 
 	return (
 		<>
@@ -101,7 +85,6 @@ export var AssessmentScreen = ({ history, match }) => {
 
 {(() => {
             if (key.CA_status == null) {
-				console.log(key.CA_status)
               return (
                 
 					<button onClick={() => Getcuid(tc_id, tp_id, key.AM_id, key.CO_id, key.CA_status)}
@@ -109,7 +92,7 @@ export var AssessmentScreen = ({ history, match }) => {
 										
 				
               )
-            } else if (key.CA_status == "U") {
+            } else if (key.CA_status === "U") {
               return (
                 <button onClick={() => Getcuid(tc_id, tp_id, key.AM_id, key.CO_id, key.CA_status)}
 				> End assessment </button>			
@@ -138,5 +121,3 @@ export var AssessmentScreen = ({ history, match }) => {
 };
 
 export default AssessmentScreen;
-
-//OnClick

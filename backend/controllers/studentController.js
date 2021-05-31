@@ -4,7 +4,7 @@ var mysql = require('mysql');
 var app = express();
 const path = require('path');
 const cors = require("cors");
-
+require("dotenv").config();
 
 const getStudentCourses = (req, res) => {
 	const { st_id } = req.body;
@@ -200,9 +200,7 @@ const getStudentAssessments = (req, res) => {
 			conn.query(sql, [st_id, st_id, st_id], (err, result) => {
 				if (err) {
 					res.status(400).send(err);
-					// console.log("hellooo");
 				} else {
-					// console.log("hellooo");
 					if (result.length > 0) {
 						res.json(result);
 					} else {
@@ -228,7 +226,6 @@ const getQuizzQuestions = (req, res) => {
 				else {
 					if (result.length > 0) {
 						res.json(result);
-						console.log(result)
 					} else {
 						res.status(401);
 						res.json({ message: "No Data Found" });
@@ -240,17 +237,17 @@ const getQuizzQuestions = (req, res) => {
 	});
 };
 var connection = mysql.createConnection({
-	host: "b2nygqlad3hcvrrx5o9q-mysql.services.clever-cloud.com",
-	user: "uy8oj7c65lss8hw3",
-	password:"ucs8ji3zv3zC9z4WBuYT",
-	database:"b2nygqlad3hcvrrx5o9q"
+	host: process.env.MYSQL_ADDON_HOST,
+	user: process.env.MYSQL_ADDON_USER,
+	password: process.env.MYSQL_ADDON_PASSWORD,
+	database: process.env.MYSQL_ADDON_DB
 });
 
 connection.connect(function(error){
 	if(!!error){
 		console.log(error);
 	} else {
-		console.log('Connected');
+		console.log('DB Connected(2)');
 	}
 });
 
@@ -268,7 +265,7 @@ app.get('/content',function(req,resp){
 	});
 }) 
 const port=process.env.PORT || 3002;
- app.listen(port, ()=> console.log(`port in use ${port}..`));
+ app.listen(port, ()=> console.log(`listening on ${port}..`));
 module.exports = {
 	getStudentCourses,
 	getStudentSessionPlans,

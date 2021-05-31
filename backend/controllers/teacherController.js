@@ -198,7 +198,6 @@ const markContentStatus = (req, res) => {
 };
 
 const getTeacherAssessments = (req, res) => {
-	console.log("hi");
 	const { co_id } = req.body;
 	pool.getConnection((err, conn) => {
 		if (err) res.status(400).send("Connection Error");
@@ -223,7 +222,7 @@ const getTeacherAssessments = (req, res) => {
 
 const updateTeacherAssessments = (req, res) => {
 	const { ch_id, tc_id, tp_id, am_id, co_id, CA_status } = req.body;
-	console.log(ch_id, tc_id, tp_id, am_id, co_id, CA_status)
+
 	pool.getConnection((err, conn) => {
 		if (err) res.status(400).send("Connection Error");
 		else {
@@ -231,7 +230,6 @@ const updateTeacherAssessments = (req, res) => {
 			if(CA_status == null)
 			{//let sql0='select CH_id from cohort where TC_id=? and TP_id=? and CU_id=(select CU_id from curriculumdetails where CO_id=?)'
 			let sql = `insert into cohorassessment (CH_id, TC_id, TP_id, CA_status,AM_id,CO_id) values(?,?,?,'U',?,?);`;
-			// console.log("hiiiiiiiii")
 			conn.query(sql, [ch_id, tc_id, tp_id, am_id, co_id], (err, result) => {
 				
 				if (err) res.status(400).send(err);
@@ -251,19 +249,16 @@ const updateTeacherAssessments = (req, res) => {
 			else if(CA_status == "U")
 			{//let sql0='select CH_id from cohort where TC_id=? and TP_id=? and CU_id=(select CU_id from curriculumdetails where CO_id=?)'
 				let sql = `update cohorassessment set CA_status='E' WHERE CH_id=? AND TC_id=? AND TP_id=? AND AM_id=? AND CO_id=?`;
-				 console.log(CA_status);
+				
 				conn.query(sql, [ch_id, tc_id, tp_id, am_id, co_id], (err, result) => {
 					
 					if (err) res.status(400).send(err);
 					else {
-						console.log(req.body);
 						if (result.length > 0) {
 							res.json(result);
-							//console.log("helloooo");
 						} else {
 							res.status(401);
 							res.json({ message: "No Data Found" });
-							//console.log("lul");
 						}
 					}
 				});}

@@ -8,8 +8,9 @@ import DropDown from '../components/DropDown'
 import { sessionDetails, sessionStatusDetails } from '../actions/teacherActions'
 import { studentsessionDetails } from '../actions/studentActions'
 import { setTemp } from '../actions/urlActions'
+import { logout } from '../actions/userActions'
 
-export const SessionScreen = ({ history, match }) => {
+export const SessionScreen = ({ history }) => {
     const dispatch = useDispatch()
 
     const userLogin = useSelector(state => state.userLogin)
@@ -43,15 +44,17 @@ export const SessionScreen = ({ history, match }) => {
         }
         else if(userInfo && userRole === "Student") {
             dispatch(studentsessionDetails(urlParameter.sessionUrl))
+            dispatch(sessionStatusDetails(urlParameter.sessionUrl))
         }
         else {
             history.push('/login')
         }
     }, [dispatch, history, urlParameter, userInfo, userRole])
-
+      
 
     return (
         <>
+        {error && error === 401 ? dispatch(logout()) : null}
             <h1 style={{"text-align": "center"}}>Sessions</h1>
             { loading || statusLoading ? (<Loader>Loading....</Loader>) : 
             <div>
@@ -68,13 +71,13 @@ export const SessionScreen = ({ history, match }) => {
                     <tbody>
                     {error || err ? <td colspan="4"><Message variant='danger'>{error || err}</Message></td> :
                         SessionInfo.map((key, index) => 
-                            <tr key={key.SP_id}>
+                        <tr  key={key.SP_id}>
                                 <td>{key.SP_id}</td>
                                 <td>{key.SP_Name}</td>
                                 <td>{key.SP_Duration === null ?  `${key.SP_Duration}` : key.SP_Duration}</td>
                                 {
                                     userRole === "Teacher" ? checkLockStatus(key.SP_id) ? <Link to={`/teachersections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}>{checkCompleteStatus(key.SP_id) ? <td>Completed</td> : <td>Pending</td>}</Link> : <td>Locked</td> :
-                                    <Link to={`/studentsections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}><td>View</td></Link>
+                                    <Link to={`/studentsections`} onClick={() => dispatch(setTemp('sectionUrl', key.SP_id))}>{checkCompleteStatus(key.SP_id) ? <td>Completed</td> : <td>Pending</td>}</Link>
                                 }
                             </tr>)
                         }

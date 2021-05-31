@@ -52,7 +52,7 @@ export const LoginScreen = ({ location, history }) => {
                 </Button>
             </Form>
             <div className={hidden ? "d-none" : "d-block"} style={{"margin": "2%"}}>
-            { faqLoading ? <Loader></Loader> : faqError ? <Message variant='danger'>{faqError}</Message> : <Message variant='success'>{FAQresult.map(e => e.CF_Answer)}</Message> }
+            { faqLoading ? <Loader></Loader> : faqError ? <Message variant='danger'>{faqError}</Message> : <Message variant='success'>{FAQresult[0] ? FAQresult[0].CF_Answer : null}</Message> }
             </div>
         </FormContainer>
         </>
